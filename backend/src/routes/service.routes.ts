@@ -1,0 +1,17 @@
+import serviceController from "../controller/service.controller";
+import router from "./auth.routes";
+
+
+router.post("/services",  async (req, res) => {
+    serviceController.createService(req, res);
+});
+
+router.get("/services", async (req, res) => {
+    serviceController.getAllServices(req, res);
+});
+
+router.get("/services/:id_service", async (req, res) => {
+    serviceController.getServiceById(req, res);
+});
+
+export default router;

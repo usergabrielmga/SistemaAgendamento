@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model admin {
+  id_admin Int    @id @default(autoincrement())
+  username String @unique @db.VarChar(50)
+  password String @db.VarChar(255)
+}
+
+model appointments {
+  id_appointment Int      @id @default(autoincrement())
+  id_client      Int
+  id_service     Int
+  date           DateTime @db.Date
+  hour           DateTime @db.Time(6)
+  status         String   @default("Agendado") @db.VarChar(20)
+  observations   String?
+  clients        clients  @relation(fields: [id_client], references: [id_client], onDelete: Cascade, map: "fk_client")
+  services       services @relation(fields: [id_service], references: [id_service], map: "fk_service")
+}
+
+model clients {
+  id_client    Int            @id @default(autoincrement())
+  name         String         @db.VarChar(100)
+  telephone    String         @db.VarChar(20)
+  email        String         @unique @db.VarChar(100)
+  appointments appointments[]
+}
+
+model services {
+  id_service   Int            @id @default(autoincrement())
+  name         String         @db.VarChar(100)
+  description  String?
+  duration     Int
+  price        Decimal        @db.Decimal(10, 2)
+  appointments appointments[]
+}
+
+model working_hours {
+  id_working_hour Int       @id @default(autoincrement())
+  day_of_week     Int       @unique @db.SmallInt
+  is_active       Boolean   @default(true)
+  start_time      DateTime? @db.Time(6)
+  end_time        DateTime? @db.Time(6)
+}
+
+
+model blocked_dates {
+  id_block    Int       @id @default(autoincrement())
+  block_date  DateTime  @db.Date
+  start_time  DateTime? @db.Time(6)
+  end_time    DateTime? @db.Time(6)
+  reason      String?
+}

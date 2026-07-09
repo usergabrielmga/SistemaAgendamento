@@ -28,6 +28,16 @@ class AppointmentsService {
       throw new Error("Error creating appointment");
     }
   }
+
+  async getAllAppointments() {
+    try {
+      const appointments = await prisma.appointments.findMany();
+      return appointments;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error fetching appointments");
+    }
+  }
 }
 
 export default new AppointmentsService();

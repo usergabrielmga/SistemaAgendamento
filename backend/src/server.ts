@@ -9,7 +9,7 @@ import blockedDatesRoutes from './routes/blocked.dates.routes';
 
 
 
-const PORT = 3000;
+const PORT = 3001;
 
 app.use(clientRoutes);
 app.use(authRoutes);

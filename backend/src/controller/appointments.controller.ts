@@ -23,6 +23,16 @@ class AppointmentsController {
             res.status(500).json({ error: "Error creating appointment" });
         }
     }
+
+    async getAllAppointments(req: Request, res: Response) {
+        try {
+            const appointments = await prisma.appointments.findMany();
+            res.status(200).json(appointments);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: "Error fetching appointments" });
+        }
+    }
 }
 
 export default new AppointmentsController();

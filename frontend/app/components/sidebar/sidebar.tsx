@@ -12,6 +12,7 @@ export default function Sidebar() {
       flex-col
       justify-between
       w-72
+      h-screen
       border-r
       bg-white
       "

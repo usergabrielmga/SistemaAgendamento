@@ -47,21 +47,21 @@ export default function useAgenda() {
 
         return {
            // Cliente
-  client: client?.name ?? "Cliente",
-  telephone: client?.telephone ?? "",
-  email: client?.email ?? "",
+            client: client?.name ?? "Cliente",
+            telephone: client?.telephone ?? "",
+            email: client?.email ?? "",
 
-  // Serviço
-  service: service?.name ?? "Serviço",
-  duration: service?.duration ?? 0,
-  price: service?.price ?? "0",
-  description: service?.description ?? "",
+            // Serviço
+            service: service?.name ?? "Serviço",
+            duration: service?.duration ?? 0,
+            price: service?.price ?? "0",
+            description: service?.description ?? "",
 
-  // Agendamento
-  hour: new Date(appointment.hour).toLocaleTimeString("pt-BR", {
-    hour: "2-digit",
-    minute: "2-digit",
-  }),
+            // Agendamento
+            hour: new Date(appointment.hour).toLocaleTimeString("pt-BR", {
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
 
 
           status:

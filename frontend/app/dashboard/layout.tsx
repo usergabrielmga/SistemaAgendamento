@@ -15,7 +15,7 @@ export default function DashboardLayout({
 
         <Sidebar />
 
-        <main className="flex-1 flex justify-center p-6 lg:p-10">
+        <main className="flex-1 w-full overflow-x-hidden flex justify-center p-4 md:p-6 lg:p-10">
           {children}
         </main>
 

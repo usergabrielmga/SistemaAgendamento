@@ -1,11 +1,27 @@
+"use client";
 
+import useAgenda from "@/app/hooks/useAgenda";
+import AgendaCalendar from "@/app/components/agenda/AgendaCalendar";
+import AppointmentList from "@/app/components/agenda/AppointmentList";
 
 export default function AgendaPage() {
+
+  const agenda = useAgenda();
+
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-100">
-      <h1 className="text-5xl font-bold text-pink-600">
-        Bem-vindo à Agenda!
-      </h1>
-    </div>
+    <main className="w-full md:w-auto space-y-10">
+
+      <AgendaCalendar
+        week={agenda.week}
+        appointments={agenda.appointments}
+        selectedDate={agenda.selectedDate}
+        setSelectedDate={agenda.setSelectedDate}
+      />
+
+      <AppointmentList
+        appointments={agenda.appointmentsDay}
+      />
+
+    </main>
   );
 }

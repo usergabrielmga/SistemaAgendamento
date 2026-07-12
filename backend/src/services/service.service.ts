@@ -39,6 +39,28 @@ class Service {
             throw new Error("Error fetching service by ID" + error);
         }
     }
+
+    async updateService(id_service: number, data: { name?: string; description?: string; duration?: number; price?: number }) {
+        try {
+            const updatedService = await prisma.services.update({
+                where: { id_service },
+                data,
+            });
+            return updatedService;
+        } catch (error) {
+            throw new Error("Error updating service" + error);
+        }
+    }
+
+    async deleteService(id_service: number) {
+        try {
+            await prisma.services.delete({
+                where: { id_service },
+            });
+        } catch (error) {
+            throw new Error("Error deleting service" + error);
+        }
+    }
 }
 
 export default new Service();

@@ -14,4 +14,12 @@ router.get("/services/:id_service", async (req, res) => {
     serviceController.getServiceById(req, res);
 });
 
+router.put("/services/:id_service", async (req, res) => {
+    serviceController.updateService(req, res);
+});
+
+router.delete("/services/:id_service", async (req, res) => {
+    serviceController.deleteService(req, res);
+});
+
 export default router;

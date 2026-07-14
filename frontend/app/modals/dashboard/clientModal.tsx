@@ -7,7 +7,7 @@ import {
   X,
 } from "lucide-react";
 
-import { ClientDetails } from "@/app/types/client.type";
+import { ClientDetails } from "@/app/types/dashboard/client.type";
 
 interface Props {
   client: ClientDetails | null;

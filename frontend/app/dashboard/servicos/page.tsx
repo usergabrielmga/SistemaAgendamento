@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 
-import useServices from "@/app/hooks/useServices";
+import useServices from "@/app/hooks/dashboard/useServices";
 
-import ServiceHeader from "@/app/components/servicos/serviceHeader";
-import ServiceList from "@/app/components/servicos/serviceList";
-import ServiceFormModal from "@/app/components/servicos/serviceFormModal";
+import ServiceHeader from "@/app/components/dashboard/servicos/serviceHeader";
+import ServiceList from "@/app/components/dashboard/servicos/serviceList";
+import ServiceFormModal from "@/app/components/dashboard/servicos/serviceFormModal";
 
-import { Services } from "@/app/types/services.type";
+import { Services } from "@/app/types/dashboard/services.type";
 
 export default function ServicesPage() {
 

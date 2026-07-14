@@ -2,7 +2,7 @@
 
 import { Pencil, Trash2, Scissors } from "lucide-react";
 
-import { Services } from "@/app/types/services.type";
+import { Services } from "@/app/types/dashboard/services.type";
 
 interface Props {
   service: Services;

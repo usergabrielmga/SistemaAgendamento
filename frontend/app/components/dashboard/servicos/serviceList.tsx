@@ -2,7 +2,7 @@
 
 import ServiceCard from "./serviceCard";
 
-import { Services } from "@/app/types/services.type";
+import { Services } from "@/app/types/dashboard/services.type";
 
 interface Props {
   services: Services[];

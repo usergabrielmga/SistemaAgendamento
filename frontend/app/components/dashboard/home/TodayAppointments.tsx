@@ -1,4 +1,4 @@
-import { TodayAppointment } from "@/app/types/appointments.type";
+import { TodayAppointment } from "@/app/types/dashboard/appointments.type";
 
 interface TodayAppointmentsProps {
   appointments: TodayAppointment[];

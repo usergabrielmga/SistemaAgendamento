@@ -1,6 +1,6 @@
 "use client";
 
-import { Client } from "@/app/types/client.type";
+import { Client } from "@/app/types/dashboard/client.type";
 import { UserRound, ChevronRight } from "lucide-react";
 
 interface Props {

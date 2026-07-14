@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import Cookies from "js-cookie";
-import { login as loginService } from "../services/login.service";
+import { login as loginService } from "../../services/login/login.service";
 
 type User = {
   username: string;

@@ -2,13 +2,24 @@ import { prisma } from "../lib/prisma";
 
 class BlockedDatesService {
 
-    private formatTime(time: string | null) {
+    private formatTime(
+    time?: string | null
+) {
 
-        if (!time) return null;
+    if (
+        !time ||
+        time.trim() === ""
+    ) {
 
-        return new Date(`1970-01-01T${time}.000Z`);
+        return null;
 
     }
+
+    return new Date(
+        `1970-01-01T${time}:00`
+    );
+
+}
 
     async createBlockedDate(
         block_date: string,

@@ -1,5 +1,5 @@
 import ClientCard from "./clientCard";
-import { Client } from "@/app/types/client.type";
+import { Client } from "@/app/types/dashboard/client.type";
 
 interface Props {
   clients: Client[];

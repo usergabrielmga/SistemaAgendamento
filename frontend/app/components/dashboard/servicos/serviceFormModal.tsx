@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
-import { Services } from "@/app/types/services.type";
+import { Services } from "@/app/types/dashboard/services.type";
 
 interface Props {
   open: boolean;

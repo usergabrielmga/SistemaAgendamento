@@ -1,9 +1,9 @@
-import { getAppointments } from "@/app/services/appointments.service";
-import { getClients } from "@/app/services/clients.service";
-import { getServices } from "@/app/services/services.service";
-import { Appointment } from "@/app/types/appointments.type";
-import { Client } from "@/app/types/client.type";
-import { Services } from "@/app/types/services.type";
+import { getAppointments } from "@/app/services/dashboard/appointments.service";
+import { getClients } from "@/app/services/dashboard/clients.service";
+import { getServices } from "@/app/services/dashboard/services.service";
+import { Appointment } from "@/app/types/dashboard/appointments.type";
+import { Client } from "@/app/types/dashboard/client.type";
+import { Services } from "@/app/types/dashboard/services.type";
 
 export async function getTodayAppointments() {
   const [appointments, clients, services] = await Promise.all([

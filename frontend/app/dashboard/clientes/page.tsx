@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 
-import useClients from "@/app/hooks/useClient";
+import useClients from "@/app/hooks/dashboard/useClient";
 
-import ClientSearch from "@/app/components/clientes/clientSearch";
-import ClientList from "@/app/components/clientes/clientList";
-import ClientModal from "@/app/modals/clientModal";
+import ClientSearch from "@/app/components/dashboard/clientes/clientSearch";
+import ClientList from "@/app/components/dashboard/clientes/clientList";
+import ClientModal from "@/app/modals/dashboard/clientModal";
 
 export default function ClientsPage() {
 

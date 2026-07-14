@@ -1,4 +1,4 @@
-import { AppointmentItemProps } from "@/app/types/appointments.type";
+import { AppointmentItemProps } from "@/app/types/dashboard/appointments.type";
 
 const statusStyles = {
   Pendente: "bg-yellow-100 text-yellow-700",

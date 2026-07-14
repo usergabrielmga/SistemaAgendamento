@@ -1,7 +1,7 @@
 "use client";
 
 import { X } from "lucide-react";
-import { AgendaAppointment } from "@/app/types/appointments.type";
+import { AgendaAppointment } from "@/app/types/dashboard/appointments.type";
 
 interface Props {
   appointment: AgendaAppointment | null;

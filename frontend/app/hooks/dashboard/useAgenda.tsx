@@ -2,16 +2,16 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import { getAppointments } from "../services/appointments.service";
-import { getClients } from "../services/clients.service";
-import { getServices } from "../services/services.service";
+import { getAppointments } from "../../services/dashboard/appointments.service";
+import { getClients } from "../../services/dashboard/clients.service";
+import { getServices } from "../../services/dashboard/services.service";
 
-import { AgendaAppointment } from "../types/appointments.type";
+import { AgendaAppointment } from "../../types/dashboard/appointments.type";
 
 import {
   getWeekDays,
   isAppointmentDay,
-} from "../components/agenda/calendar";
+} from "../../components/dashboard/agenda/calendar";
 
 export default function useAgenda() {
   const [selectedDate, setSelectedDate] =

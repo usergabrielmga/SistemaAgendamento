@@ -2,21 +2,21 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import { getClients } from "../services/clients.service";
-import { getAppointments } from "../services/appointments.service";
-import { getServices } from "../services/services.service";
+import { getClients } from "../../services/dashboard/clients.service";
+import { getAppointments } from "../../services/dashboard/appointments.service";
+import { getServices } from "../../services/dashboard/services.service";
 
 import {
   Appointment,
-} from "../types/appointments.type";
+} from "../../types/dashboard/appointments.type";
 
 import {
   ClientDetails,
-} from "../types/client.type";
+} from "../../types/dashboard/client.type";
 
 import {
   Services,
-} from "../types/services.type";
+} from "../../types/dashboard/services.type";
 
 export default function useClients() {
   const [clients, setClients] = useState<ClientDetails[]>([]);

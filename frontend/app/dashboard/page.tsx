@@ -1,11 +1,11 @@
 
-import DashboardHeader from "@/app/components/dashboard/DashboardHeader";
-import DashboardCard from "@/app/components/dashboard/DashboardCard";
-import TodayAppointments from "@/app/components/dashboard/TodayAppointments";
+import DashboardHeader from "@/app/components/dashboard/home/DashboardHeader";
+import DashboardCard from "@/app/components/dashboard/home/DashboardCard";
+import TodayAppointments from "@/app/components/dashboard/home/TodayAppointments";
 
 
-import { getDashboardStats } from "@/app/components/dashboard/dashboard.service";
-import { getTodayAppointments } from "../components/dashboard/appointments.service";
+import { getDashboardStats } from "@/app/components/dashboard/home/dashboard.service";
+import { getTodayAppointments } from "../components/dashboard/home/appointments.service";
 
 export default async function DashboardPage() {
   const todayAppointments = await getTodayAppointments();

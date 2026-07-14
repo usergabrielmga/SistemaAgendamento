@@ -7,9 +7,9 @@ import {
   createService,
   updateService,
   deleteService,
-} from "../services/services.service";
+} from "../../services/dashboard/services.service";
 
-import { Services } from "../types/services.type";
+import { Services } from "../../types/dashboard/services.type";
 
 export default function useServices() {
 

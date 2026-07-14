@@ -1,8 +1,8 @@
 "use client";
 
-import useAgenda from "@/app/hooks/useAgenda";
-import AgendaCalendar from "@/app/components/agenda/AgendaCalendar";
-import AppointmentList from "@/app/components/agenda/AppointmentList";
+import useAgenda from "@/app/hooks/dashboard/useAgenda";
+import AgendaCalendar from "@/app/components/dashboard/agenda/AgendaCalendar";
+import AppointmentList from "@/app/components/dashboard/agenda/AppointmentList";
 
 export default function AgendaPage() {
 

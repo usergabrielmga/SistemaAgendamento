@@ -1,5 +1,5 @@
 import AppointmentCard from "./AppointmentCard";
-import { AgendaAppointment } from "@/app/types/appointments.type";
+import { AgendaAppointment } from "@/app/types/dashboard/appointments.type";
 
 interface Props {
   appointments: AgendaAppointment[];

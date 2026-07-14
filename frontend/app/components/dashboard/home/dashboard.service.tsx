@@ -1,6 +1,6 @@
-import { getAppointments } from "@/app/services/appointments.service";
-import { getClients } from "@/app/services/clients.service";
-import { getServices } from "@/app/services/services.service";
+import { getAppointments } from "@/app/services/dashboard/appointments.service";
+import { getClients } from "@/app/services/dashboard/clients.service";
+import { getServices } from "@/app/services/dashboard/services.service";
 
 import {
   CalendarDays,
@@ -9,8 +9,8 @@ import {
   Users,
 } from "lucide-react";
 
-import { Appointment } from "@/app/types/appointments.type";
-import { Services } from "@/app/types/services.type";
+import { Appointment } from "@/app/types/dashboard/appointments.type";
+import { Services } from "@/app/types/dashboard/services.type";
 
 function countTodayAppointments(appointments: Appointment[]): number {
     
@@ -43,7 +43,7 @@ function getMonthlyRevenue(services: Services[], appointments: Appointment[]): n
 
     if (!service) return acc;
 
-    return acc + parseFloat(service.price ?? 0);
+    return acc + parseFloat(String(service.price ?? '0'));
   }, 0);
 }
 

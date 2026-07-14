@@ -4,8 +4,8 @@ import { useState } from "react";
 
 import { ChevronRight } from "lucide-react";
 
-import { AgendaAppointment } from "@/app/types/appointments.type";
-import AppointmentModal from "@/app/modals/AppointmentModal";
+import { AgendaAppointment } from "@/app/types/dashboard/appointments.type";
+import AppointmentModal from "@/app/modals/dashboard/AppointmentModal";
 
 interface Props {
   appointment: AgendaAppointment;

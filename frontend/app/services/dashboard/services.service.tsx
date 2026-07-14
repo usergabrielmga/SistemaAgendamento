@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { Services } from "../types/services.type";
+import { Services } from "../../types/dashboard/services.type";
 
 const API_URL = "http://localhost:3001/services";
 

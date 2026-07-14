@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { useState } from "react";
 import { Eye, EyeOff, Lock, User } from "lucide-react";
-import { useAuth } from "../hooks/login";
+import { useAuth } from "../hooks/login/login";
 
 export default function AdminLogin() {
    const router = useRouter(); 

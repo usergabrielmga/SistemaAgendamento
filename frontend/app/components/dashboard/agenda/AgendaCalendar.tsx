@@ -6,7 +6,7 @@ import {
   formatHeaderDate,
   isAppointmentDay,
   isSelectedDay,
-} from "@/app/components/agenda/calendar";
+} from "@/app/components/dashboard/agenda/calendar";
 
 interface WeekDay {
   date: Date;

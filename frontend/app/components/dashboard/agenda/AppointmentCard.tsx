@@ -20,16 +20,16 @@ export default function AppointmentCard({
     <>
       <div
         onClick={() => setOpen(true)}
-        className="cursor-pointer bg-white rounded-2xl border px-4 py-4 md:px-6 md:py-5 flex items-center justify-between hover:shadow-sm transition"
+        className="cursor-pointer bg-white rounded-2xl border px-4 py-4 md:px-6 md:py-5 flex items-center justify-between hover:shadow-sm transition cursor-pointer"
       >
       <div className="flex items-center gap-3 md:gap-6 min-w-0">
 
         <div className="min-w-[55px] md:min-w-[70px]">
-          <p className="font-bold text-base md:text-lg">
+          <p className="font-bold text-base md:text-lg text-black font-sans">
             {appointment.hour}
           </p>
 
-          <span className="text-[11px] md:text-xs text-[#8B4513]">
+          <span className="text-[11px] md:text-xs text-[#8B4513] font-sans">
             {appointment.duration} min
           </span>
         </div>
@@ -37,11 +37,11 @@ export default function AppointmentCard({
         <div className="w-px h-10 md:h-12 bg-gray-200" />
 
         <div className="min-w-0">
-          <h3 className="font-semibold text-sm md:text-base truncate">
+          <h3 className="font-semibold text-sm md:text-base truncate text-black font-sans">
             {appointment.client}
           </h3>
 
-          <p className="text-[#8B4513] text-xs md:text-sm truncate">
+          <p className="text-[#8B4513] text-xs md:text-sm truncate font-sans">
             {appointment.service}
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function AppointmentCard({
       <div className="flex items-center gap-2 md:gap-4 flex-shrink-0">
 
         <span
-          className={`px-2.5 py-1 md:px-4 rounded-full text-[10px] md:text-xs font-medium whitespace-nowrap ${
+          className={`px-2.5 py-1 md:px-4 rounded-full text-[10px] md:text-xs font-medium whitespace-nowrap font-sans ${
             appointment.status === "Realizado"
               ? "bg-blue-100 text-blue-600"
               : "bg-orange-100 text-orange-600"

@@ -31,8 +31,9 @@ export default function ServiceHeader({
       <h1
         className="
           text-3xl
-          font-bold
-        "
+          font-semi-bold 
+          font-serif
+          text-black        "
       >
         Serviços
       </h1>
@@ -62,6 +63,8 @@ export default function ServiceHeader({
           hover:bg-[#3A1C10]
 
           transition
+          font-sans
+          cursor-pointer
         "
       >
 

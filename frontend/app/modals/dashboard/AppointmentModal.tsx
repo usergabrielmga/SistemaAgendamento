@@ -17,12 +17,12 @@ export default function AppointmentModal({
   if (!open || !appointment) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/25 backdrop-blur-[2px] p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/25 backdrop-blur-[2px] p-4 font-sans">
       <div
         className="
           relative
           w-full
-          max-w-[520px]
+          max-w-[450px]
           max-h-[90vh]
           overflow-y-auto
           rounded-[28px]
@@ -39,12 +39,12 @@ export default function AppointmentModal({
       >
         <button
           onClick={onClose}
-          className="absolute right-5 top-5 md:right-7 md:top-7 text-gray-500 hover:text-black transition"
+          className="absolute right-5 top-5 md:right-7 md:top-7 text-gray-500 hover:text-black transition cursor-pointer"
         >
           <X size={20} />
         </button>
 
-        <h2 className="text-2xl md:text-[30px] font-serif font-bold text-[#1B120D] pr-8">
+        <h2 className="text-2xl md:text-[30px] font-semibold font-serif text-[#1B120D] pr-8">
           Detalhes do agendamento
         </h2>
 
@@ -93,6 +93,7 @@ export default function AppointmentModal({
               md:text-xs
               font-medium
               whitespace-nowrap
+              font-sans
               ${
                 appointment.status === "Realizado"
                   ? "bg-sky-100 text-sky-700"
@@ -105,7 +106,7 @@ export default function AppointmentModal({
 
           <button
             onClick={onClose}
-            className="rounded-lg bg-red-50 px-4 py-2 md:px-5 text-sm font-medium text-red-500 hover:bg-red-100 transition"
+            className="rounded-lg bg-red-50 px-4 py-2 md:px-5 text-sm font-medium text-red-500 hover:bg-red-100 transition font-sans cursor-pointer"
           >
             Cancelar
           </button>
@@ -122,12 +123,12 @@ interface RowProps {
 
 function Row({ label, value }: RowProps) {
   return (
-    <div className="flex items-start justify-between gap-4">
-      <span className="text-[#8B4513] text-sm md:text-base whitespace-nowrap">
+    <div className="flex items-start justify-between gap-4  ">
+      <span className="text-[#8B4513] text-sm whitespace-nowrap">
         {label}
       </span>
 
-      <span className="font-semibold text-[#1B120D] text-sm md:text-base text-right break-words">
+      <span className="font-semibold text-[#1B120D] text-sm text-right break-words">
         {value}
       </span>
     </div>

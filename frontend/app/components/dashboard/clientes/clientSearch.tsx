@@ -29,13 +29,16 @@ export default function ClientSearch({
           w-full
           h-12
           rounded-2xl
+          border-black/10
           border
           bg-white
           pl-11
           pr-4
           outline-none
           focus:ring-2
-          focus:ring-[#4D2615]/20
+          focus:ring-[#C97B63]
+          text-black
+          font-sans
         "
       />
 

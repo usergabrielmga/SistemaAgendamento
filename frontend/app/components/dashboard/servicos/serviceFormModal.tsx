@@ -91,30 +91,31 @@ export default function ServiceFormModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-[2px] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-[2px] p-4">
       <div
         className="
           relative
           w-full
-          max-w-[520px]
-          rounded-[28px]
+          max-w-[500px]
+          rounded-[24px]
           bg-white
           shadow-2xl
-          px-5
-          py-6
-          md:px-8
-          md:py-7
+          px-4
+          py-5
+          md:px-6
+          md:py-6
         "
       >
         <button
           onClick={onClose}
           className="
             absolute
-            top-5
-            right-5
+            top-4
+            right-4
             text-gray-500
             hover:text-black
             transition
+            cursor-pointer
           "
         >
           <X size={18} />
@@ -122,10 +123,10 @@ export default function ServiceFormModal({
 
         <h2
           className="
-            text-2xl
-            md:text-3xl
+            text-xl
+            md:text-2xl
             font-serif
-            font-bold
+            font-semibold
             text-[#1B120D]
           "
         >
@@ -136,10 +137,10 @@ export default function ServiceFormModal({
 
         <form
           onSubmit={handleSubmit}
-          className="mt-8 space-y-6"
+          className="mt-5 space-y-4 font-sans"
         >
           <div>
-            <label className="block text-sm font-medium mb-2 text-black">
+            <label className="block mb-1.5 text-sm font-medium text-black">
               Nome do serviço *
             </label>
 
@@ -152,11 +153,13 @@ export default function ServiceFormModal({
               placeholder="Ex: Corte Masculino"
               className="
                 w-full
-                h-12
+                h-11
                 rounded-xl
                 border
-                px-4
+                border-gray-300
+                px-3
                 outline-none
+                text-black
                 focus:ring-2
                 focus:ring-[#4D2615]/20
               "
@@ -164,7 +167,7 @@ export default function ServiceFormModal({
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2 text-black">
+            <label className="block mb-1.5 text-sm font-medium text-black">
               Descrição
             </label>
 
@@ -180,19 +183,21 @@ export default function ServiceFormModal({
                 w-full
                 rounded-xl
                 border
-                px-4
-                py-3
+                border-gray-300
+                px-3
+                py-2.5
                 resize-none
                 outline-none
+                text-black
                 focus:ring-2
                 focus:ring-[#4D2615]/20
               "
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label className="block text-sm font-medium mb-2 text-black">
+              <label className="block mb-1.5 text-sm font-medium text-black">
                 Duração (min)
               </label>
 
@@ -207,11 +212,13 @@ export default function ServiceFormModal({
                 }
                 className="
                   w-full
-                  h-11
+                  h-10
                   rounded-xl
                   border
-                  px-4
+                  border-gray-300
+                  px-3
                   outline-none
+                  text-black
                   focus:ring-2
                   focus:ring-[#4D2615]/20
                 "
@@ -219,7 +226,7 @@ export default function ServiceFormModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2 text-black">
+              <label className="block mb-1.5 text-sm font-medium text-black">
                 Valor (R$)
               </label>
 
@@ -235,11 +242,13 @@ export default function ServiceFormModal({
                 }
                 className="
                   w-full
-                  h-11
+                  h-10
                   rounded-xl
                   border
-                  px-4
+                  border-gray-300
+                  px-3
                   outline-none
+                  text-black
                   focus:ring-2
                   focus:ring-[#4D2615]/20
                 "
@@ -247,7 +256,7 @@ export default function ServiceFormModal({
             </div>
           </div>
 
-          <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-2">
+          <div className="flex flex-col-reverse justify-end gap-2 pt-1 sm:flex-row">
             <button
               type="button"
               onClick={onClose}
@@ -257,9 +266,12 @@ export default function ServiceFormModal({
                 sm:w-auto
                 rounded-xl
                 border
-                px-7
-                py-3
+                border-gray-300
+                px-5
+                py-2.5
+                text-black
                 hover:bg-gray-50
+                cursor-pointer
               "
             >
               Cancelar
@@ -273,11 +285,12 @@ export default function ServiceFormModal({
                 sm:w-auto
                 rounded-xl
                 bg-[#4D2615]
-                px-8
-                py-3
+                px-6
+                py-2.5
                 text-white
                 hover:bg-[#3A1C10]
                 disabled:opacity-60
+                cursor-pointer
               "
             >
               {loading

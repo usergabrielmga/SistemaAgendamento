@@ -42,21 +42,21 @@ export default function AgendaCalendar({
   return (
     <section className="space-y-8">
 
-      <h1 className="text-3xl font-bold text-black">
+      <h1 className="text-[30px] font-serif font-bold text-black">
         Agenda
       </h1>
 
-     <div className="bg-white rounded-3xl border p-3 sm:p-4 md:p-6">
+     <div className="bg-white rounded-3xl border p-3 sm:p-4 md:p-6 ">
         <div className="flex items-center">
 
           <button
             onClick={previousWeek}
-            className="flex-shrink-0 p-1 sm:p-2 hover:bg-gray-100 rounded-full"
+            className="flex-shrink-0 p-1 sm:p-2 hover:bg-gray-100 rounded-full "
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft className="text-black" size={20} />
           </button>
 
-          <div className="flex-1 overflow-x-auto px-2">
+          <div className="flex-1 overflow-x-auto mobile-scroll px-2">
             <div className="flex justify-between gap-2 md:gap-3">
 
               {week.map((day) => {
@@ -74,7 +74,7 @@ export default function AgendaCalendar({
                       flex-shrink-0
 
                       w-14 h-18
-                      sm:w-16 sm:h-20
+                      sm:w-46 sm:h-20
                       md:w-24 md:h-24
 
                       rounded-2xl
@@ -83,6 +83,7 @@ export default function AgendaCalendar({
                       justify-center
                       items-center
                       transition
+                      text-black
 
                       ${
                         active
@@ -97,17 +98,18 @@ export default function AgendaCalendar({
                         sm:text-[10px]
                         md:text-xs
                         capitalize
+                        font-sans
                         ${
                           active
                             ? "text-white"
-                            : "text-gray-500"
+                            : "text-[#8B4513]"
                         }
                       `}
                     >
                       {day.weekDay}
                     </span>
 
-                    <span className="font-bold text-base sm:text-lg md:text-xl">
+                    <span className="font-bold text-base sm:text-lg md:text-sm font-sans">
                       {day.dayNumber}
                     </span>
 
@@ -125,6 +127,7 @@ export default function AgendaCalendar({
 
                         text-[9px]
                         md:text-xs
+                        font-sans
 
                         ${
                           active
@@ -145,13 +148,13 @@ export default function AgendaCalendar({
             onClick={nextWeek}
             className="flex-shrink-0 p-1 sm:p-2 hover:bg-gray-100 rounded-full"
           >
-            <ChevronRight size={20} />
+            <ChevronRight className="text-black" size={20} />
           </button>
 
         </div>
       </div>
 
-      <h2 className="text-center font-bold text-xl">
+      <h2 className="text-center font-bold text-lg font-sans text-black">
         {formatHeaderDate(selectedDate)}
       </h2>
 

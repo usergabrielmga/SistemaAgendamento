@@ -29,3 +29,25 @@ body {
   --font-sans: var(--font-sans);
   --font-serif: var(--font-serif);
 }
+
+@media (max-width: 768px) {
+  .mobile-scroll::-webkit-scrollbar {
+    height: 5px;
+    padding-top: 5px;
+  }
+
+  .mobile-scroll::-webkit-scrollbar-track {
+    background: #f3f4f6;
+    border-radius: 999px;
+  }
+
+  .mobile-scroll::-webkit-scrollbar-thumb {
+    background: #8B4513;
+    border-radius: 999px;
+  }
+
+  .mobile-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #8B4513 #f3f4f6;
+  }
+}

@@ -25,7 +25,7 @@ export default function ClientsPage() {
   return (
     <main className="w-full max-w-5xl space-y-8">
 
-      <h1 className="text-3xl font-bold text-black">
+      <h1 className="text-[30px] font-semibild font-serif text-black">
         Clientes
       </h1>
 

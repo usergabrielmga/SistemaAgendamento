@@ -17,22 +17,21 @@ export default function ClientCard({
     onClick={onClick}
       className="
         w-full
-
         flex
         items-center
         justify-between
 
         px-4
         py-4
-
+        font-sans
         md:px-6
-
         hover:bg-gray-50
         transition
+        cur
       "
     >
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 ">
 
         <div
           className="
@@ -42,7 +41,7 @@ export default function ClientCard({
             rounded-full
 
             bg-[#FAF4F2]
-
+            
             flex
             items-center
             justify-center
@@ -56,11 +55,11 @@ export default function ClientCard({
 
         <div className="text-left">
 
-          <h3 className="font-semibold text-sm md:text-base text-black">
+          <h3 className="font-semibold text-black text-sm">
             {client.name}
           </h3>
 
-          <p className="text-[#8B4513] text-xs md:text-sm">
+          <p className="text-[#8B4513] font-sm text-sm ">
             {client.telephone}
           </p>
 

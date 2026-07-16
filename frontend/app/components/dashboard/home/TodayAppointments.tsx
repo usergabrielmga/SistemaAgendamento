@@ -10,11 +10,11 @@ export default function TodayAppointments({
   return (
     <section>
       <div className="flex justify-between items-center mb-5">
-        <h2 className="text-[20px] font-bold text-black">
+        <h2 className="text-[20px] font-bold text-black font-serif">
           Agenda de hoje
         </h2>
 
-        <button className="text-[#8B4513] hover:underline text-sm cursor-pointer">
+        <button className="text-[#8B4513] hover:underline text-sm cursor-pointer font-sans">
           Ver agenda completa →
         </button>
       </div>
@@ -27,22 +27,22 @@ export default function TodayAppointments({
           >
             <div className="flex gap-6">
               <div>
-                <p className="font-bold text-black">
+                <p className="font-bold text-black font-sans">
                   {appointment.hour}
                 </p>
 
-                <span className="text-xs text-[#8B4513]">
+                <span className="text-xs text-[#8B4513] font-sans">
                   {appointment.duration} min
                 </span>
               </div>
              <div className="w-px h-12 bg-gray-200 rounded-full"></div>
 
               <div>
-                <h3 className="font-semibold text-black">
+                <h3 className="font-semibold text-black font-sans">
                   {appointment.client}
                 </h3>
 
-                <p className="text-[#8B4513] text-sm">
+                <p className="text-[#8B4513] text-sm font-sans">
                   {appointment.service}
                 </p>
               </div>
@@ -58,6 +58,7 @@ export default function TodayAppointments({
                 py-1
                 rounded-full
                 text-xs
+                font-sans
               "
             >
               {appointment.status}

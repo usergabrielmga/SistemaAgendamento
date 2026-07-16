@@ -64,8 +64,9 @@ export default function ServiceCard({
               font-semibold
               text-sm
               md:text-base
-
+              text-black
               truncate
+              font-sans
             "
           >
             {service.name}
@@ -75,7 +76,7 @@ export default function ServiceCard({
             className="
               text-xs
               md:text-sm
-
+              font-sans
               text-[#8B4513]
             "
           >

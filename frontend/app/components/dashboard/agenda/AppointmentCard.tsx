@@ -20,7 +20,7 @@ export default function AppointmentCard({
     <>
       <div
         onClick={() => setOpen(true)}
-        className="cursor-pointer bg-white rounded-2xl border px-4 py-4 md:px-6 md:py-5 flex items-center justify-between hover:shadow-sm transition cursor-pointer"
+        className="cursor-pointer bg-white rounded-2xl border px-4 py-4 md:px-6 md:py-5 flex items-center justify-between hover:shadow-sm transition"
       >
       <div className="flex items-center gap-3 md:gap-6 min-w-0">
 

@@ -1,101 +1,76 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-import { getAppointments } from "../../services/dashboard/appointments.service";
-import { getClients } from "../../services/dashboard/clients.service";
-import { getServices } from "../../services/dashboard/services.service";
-
-import { AgendaAppointment } from "../../types/dashboard/appointments.type";
+import { fetchAgendaAppointments } from "./queries/agenda.query";
 
 import {
   getWeekDays,
   isAppointmentDay,
-} from "../../components/dashboard/agenda/calendar";
-
-export default function useAgenda() {
-  const [selectedDate, setSelectedDate] =
-    useState(new Date());
-
-  const [appointments, setAppointments] =
-    useState<AgendaAppointment[]>([]);
-
-  useEffect(() => {
-    async function load() {
-      const [
-        appointments,
-        clients,
-        services,
-      ] = await Promise.all([
-        getAppointments(),
-        getClients(),
-        getServices(),
-      ]);
-
-      const data = appointments.map((appointment: any) => {
-        const client = clients.find(
-          (client: any) =>
-            client.id_client ===
-            appointment.id_client
-        );
-
-        const service = services.find(
-          (service: any) =>
-            service.id_service ===
-            appointment.id_service
-        );
-
-        return {
-           // Cliente
-            client: client?.name ?? "Cliente",
-            telephone: client?.telephone ?? "",
-            email: client?.email ?? "",
-
-            // Serviço
-            service: service?.name ?? "Serviço",
-            duration: service?.duration ?? 0,
-            price: service?.price ?? "0",
-            description: service?.description ?? "",
-
-            // Agendamento
-            hour: new Date(appointment.hour).toLocaleTimeString("pt-BR", {
-              hour: "2-digit",
-              minute: "2-digit",
-            }),
+} from "@/app/components/dashboard/agenda/calendar";
 
 
-          status:
-            appointment.status,
+export default function useAgenda(){
 
-          date:
-            appointment.date,
-        };
-      });
+  const [
+    selectedDate,
+    setSelectedDate
+  ] = useState(new Date());
 
-      setAppointments(data);
-    }
 
-    load();
-  }, []);
+  const {
+    data: appointments = [],
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
 
-const appointmentsDay = useMemo(() => {
-  return appointments.filter((appointment) =>
-    isAppointmentDay(
-      appointment.date,
-      selectedDate
-    )
-  );
-}, [appointments, selectedDate]);
+    queryKey:["agenda"],
 
-  const week = getWeekDays(
+    queryFn:
+      fetchAgendaAppointments,
+
+  });
+
+
+
+  const appointmentsDay = useMemo(()=>{
+
+    return appointments.filter(
+      appointment =>
+        isAppointmentDay(
+          appointment.date,
+          selectedDate
+        )
+    );
+
+  },[
+    appointments,
     selectedDate
-  );
+  ]);
+
+
 
   return {
-    week,
+
+    week:
+      getWeekDays(selectedDate),
+
     selectedDate,
+
     setSelectedDate,
+
     appointmentsDay,
+
     appointments,
+
+    isLoading,
+
+    error,
+
+    refetch,
+
   };
+
 }

@@ -38,6 +38,25 @@ class AppointmentsService {
       throw new Error("Error fetching appointments");
     }
   }
+
+  async updateAppointmentStatus(
+  id: number,
+  status: string
+) {
+  try {
+    return await prisma.appointments.update({
+      where: {
+        id_appointment: id,
+      },
+      data: {
+        status,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error updating appointment status");
+  }
+}
 }
 
 export default new AppointmentsService();

@@ -29,7 +29,7 @@ export default function Sidebar() {
             text-[#3a1c12]
             "
           >
-            JHENYFFER.
+            JHENNYFFER.
           </h1>
 
         </div>

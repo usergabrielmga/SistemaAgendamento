@@ -1,87 +1,188 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+
 
 import {
-  BlockedDate,
-  CreateBlockedDate,
-} from "../../types/dashboard/settings.type";
-
-import {
-  getBlockedDates,
   createBlockedDate,
   updateBlockedDate,
   deleteBlockedDate,
-} from "../../services/dashboard/settings.service";
+} from "@/app/services/dashboard/settings.service";
+
+
+import {
+  CreateBlockedDate,
+} from "@/app/types/dashboard/settings.type";
+
+
+import {
+  fetchBlockedDates,
+} from "./queries/blockedDates.query";
+
+
 
 export default function useSettings() {
 
-  const [blockedDates, setBlockedDates] =
-    useState<BlockedDate[]>([]);
 
-  const [loading, setLoading] =
-    useState(true);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    loadBlockedDates();
-  }, []);
 
-  async function loadBlockedDates() {
 
-    setLoading(true);
+  const {
+    data: blockedDates = [],
+    isLoading: loading,
+    error,
 
-    try {
+  } = useQuery({
 
-      const data =
-        await getBlockedDates();
+    queryKey:[
+      "blocked-dates",
+    ],
 
-      setBlockedDates(data);
+    queryFn:
+      fetchBlockedDates,
 
-    } catch (error) {
+  });
 
-      console.error(error);
 
-    } finally {
 
-      setLoading(false);
 
-    }
 
-  }
+
+  const createMutation = useMutation({
+
+    mutationFn:
+      createBlockedDate,
+
+
+    onSuccess:()=>{
+
+      queryClient.invalidateQueries({
+        queryKey:[
+          "blocked-dates",
+        ],
+      });
+
+    },
+
+  });
+
+
+
+
+
+
+
+  const updateMutation = useMutation({
+
+    mutationFn:
+      ({
+        id,
+        data,
+      }: {
+        id:number;
+        data:CreateBlockedDate;
+      }) =>
+        updateBlockedDate(
+          id,
+          data
+        ),
+
+
+
+    onSuccess:()=>{
+
+      queryClient.invalidateQueries({
+        queryKey:[
+          "blocked-dates",
+        ],
+      });
+
+    },
+
+  });
+
+
+
+
+
+
+
+  const deleteMutation = useMutation({
+
+    mutationFn:
+      deleteBlockedDate,
+
+
+    onSuccess:()=>{
+
+      queryClient.invalidateQueries({
+        queryKey:[
+          "blocked-dates",
+        ],
+      });
+
+    },
+
+  });
+
+
+
+
+
+
+
 
   async function create(
-    data: CreateBlockedDate
-  ) {
+    data:CreateBlockedDate
+  ){
 
-    await createBlockedDate(data);
-
-    await loadBlockedDates();
-
-  }
-
-  async function update(
-    id: number,
-    data: CreateBlockedDate
-  ) {
-
-    await updateBlockedDate(
-      id,
+    await createMutation.mutateAsync(
       data
     );
 
-    await loadBlockedDates();
+  }
+
+
+
+
+
+
+  async function update(
+    id:number,
+    data:CreateBlockedDate
+  ){
+
+    await updateMutation.mutateAsync({
+      id,
+      data,
+    });
 
   }
+
+
+
+
+
 
   async function remove(
-    id: number
-  ) {
+    id:number
+  ){
 
-    await deleteBlockedDate(id);
-
-    await loadBlockedDates();
+    await deleteMutation.mutateAsync(
+      id
+    );
 
   }
+
+
+
+
+
 
   return {
 
@@ -89,13 +190,13 @@ export default function useSettings() {
 
     loading,
 
-    createBlockedDate: create,
+    error,
 
-    updateBlockedDate: update,
+    createBlockedDate:create,
 
-    deleteBlockedDate: remove,
+    updateBlockedDate:update,
 
-    reload: loadBlockedDates,
+    deleteBlockedDate:remove,
 
   };
 

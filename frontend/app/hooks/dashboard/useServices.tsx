@@ -1,89 +1,173 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 import {
-  getServices,
   createService,
   updateService,
   deleteService,
-} from "../../services/dashboard/services.service";
+} from "@/app/services/dashboard/services.service";
 
-import { Services } from "../../types/dashboard/services.type";
+import { Services } from "@/app/types/dashboard/services.type";
+
+import { fetchServices } from "./queries/services.query";
+
 
 export default function useServices() {
 
-  const [services, setServices] =
-    useState<Services[]>([]);
 
-  const [loading, setLoading] =
-    useState(true);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    load();
-  }, []);
 
-  async function load() {
 
-    setLoading(true);
+  const {
+    data: services = [],
+    isLoading: loading,
+    error,
+  } = useQuery({
 
-    try {
+    queryKey: [
+      "services",
+    ],
 
-      const data =
-        await getServices();
+    queryFn:
+      fetchServices,
 
-      setServices(data);
+  });
 
-    } catch (error) {
 
-      console.error(
-        "Erro ao carregar serviços:",
-        error
-      );
 
-    } finally {
 
-      setLoading(false);
 
-    }
+  const createMutation = useMutation({
 
-  }
+    mutationFn:
+      createService,
+
+
+    onSuccess: () => {
+
+      queryClient.invalidateQueries({
+        queryKey:[
+          "services",
+        ],
+      });
+
+    },
+
+  });
+
+
+
+
+
+
+  const updateMutation = useMutation({
+
+    mutationFn:
+      ({
+        id_service,
+        service,
+      }: {
+        id_service:number;
+        service:Omit<Services,"id_service">
+      }) =>
+        updateService(
+          id_service,
+          service
+        ),
+
+
+    onSuccess: () => {
+
+      queryClient.invalidateQueries({
+        queryKey:[
+          "services",
+        ],
+      });
+
+    },
+
+  });
+
+
+
+
+
+
+
+  const deleteMutation = useMutation({
+
+    mutationFn:
+      deleteService,
+
+
+    onSuccess: () => {
+
+      queryClient.invalidateQueries({
+        queryKey:[
+          "services",
+        ],
+      });
+
+    },
+
+  });
+
+
+
+
+
+
 
   async function create(
-    service: Omit<Services, "id_service">
-  ) {
+    service: Omit<Services,"id_service">
+  ){
 
-    await createService(service);
-
-    await load();
-
-  }
-
-  async function update(
-    id_service: number,
-    service: Omit<Services, "id_service">
-  ) {
-
-    await updateService(
-      id_service,
+    await createMutation.mutateAsync(
       service
     );
 
-    await load();
+  }
+
+
+
+
+
+
+
+  async function update(
+    id_service:number,
+    service:Omit<Services,"id_service">
+  ){
+
+    await updateMutation.mutateAsync({
+      id_service,
+      service,
+    });
 
   }
 
-  async function remove(
-    id_service: number
-  ) {
 
-    await deleteService(
+
+
+
+
+
+  async function remove(
+    id_service:number
+  ){
+
+    await deleteMutation.mutateAsync(
       id_service
     );
 
-    await load();
-
   }
+
+
+
+
+
 
   return {
 
@@ -91,13 +175,13 @@ export default function useServices() {
 
     loading,
 
+    error,
+
     create,
 
     update,
 
     remove,
-
-    reload: load,
 
   };
 

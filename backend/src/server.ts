@@ -6,6 +6,7 @@ import service from './routes/service.routes';
 import appointmentsRoutes from './routes/appointments.routes';
 import workingHoursRoutes from './routes/hours.routes';
 import blockedDatesRoutes from './routes/blocked.dates.routes';
+import dashboardRoutes from './routes/dashbord.routes';
 
 
 
@@ -17,6 +18,7 @@ app.use(service);
 app.use(appointmentsRoutes);
 app.use(workingHoursRoutes);
 app.use(blockedDatesRoutes);
+app.use("/dashboard", dashboardRoutes);
 
 app.listen(PORT, async () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`)

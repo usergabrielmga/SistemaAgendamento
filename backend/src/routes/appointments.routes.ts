@@ -10,4 +10,8 @@ router.get("/appointments", async (req, res) => {
     await appointmentsController.getAllAppointments(req, res);
 });
 
+router.patch("/appointments/:id/status", async (req, res) => {
+  await appointmentsController.updateAppointmentStatus(req, res);
+});
+
 export default router;

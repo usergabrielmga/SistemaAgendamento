@@ -33,6 +33,33 @@ class AppointmentsController {
             res.status(500).json({ error: "Error fetching appointments" });
         }
     }
+
+    async updateAppointmentStatus(
+  req: Request,
+  res: Response
+) {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const appointment =
+      await prisma.appointments.update({
+        where: {
+          id_appointment: Number(id),
+        },
+        data: {
+          status,
+        },
+      });
+
+    res.status(200).json(appointment);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: "Error updating appointment status",
+    });
+  }
+}
 }
 
 export default new AppointmentsController();

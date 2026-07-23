@@ -1,4 +1,4 @@
-import ClientService from "../services/client.service";
+import ClientService from "../../services/dashboard/client.service";
 import { Request, Response } from "express";
 
 class ClientController {

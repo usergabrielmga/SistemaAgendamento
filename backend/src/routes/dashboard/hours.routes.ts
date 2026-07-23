@@ -1,5 +1,5 @@
 import { Router } from "express";
-import WorkingHoursController from "../controller/hours.controller";
+import WorkingHoursController from "../../controller/dashboard/hours.controller";
 
 const router = Router();
 

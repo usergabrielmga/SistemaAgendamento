@@ -1,4 +1,4 @@
-import BlockedDatesService from "../services/blocked.dates.service";
+import BlockedDatesService from "../../services/dashboard/blocked.dates.service";
 import { Request, Response } from "express";
 
 class BlockedDatesController {

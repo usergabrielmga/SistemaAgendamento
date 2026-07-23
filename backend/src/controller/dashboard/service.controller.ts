@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Service from "../services/service.service";
+import Service from "../../services/dashboard/service.service";
 
 class ServiceController {
     async createService(req: Request, res: Response) {

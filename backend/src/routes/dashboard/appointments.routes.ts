@@ -1,4 +1,4 @@
-import appointmentsController from "../controller/appointments.controller";
+import appointmentsController from "../../controller/dashboard/appointments.controller";
 import router from "./service.routes";
 
 

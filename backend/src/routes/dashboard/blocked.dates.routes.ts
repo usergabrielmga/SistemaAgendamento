@@ -1,5 +1,5 @@
 import { Router } from "express";
-import BlockedDatesController from "../controller/blocked.dates.controller";
+import BlockedDatesController from "../../controller/dashboard/blocked.dates.controller";
 
 const router = Router();
 

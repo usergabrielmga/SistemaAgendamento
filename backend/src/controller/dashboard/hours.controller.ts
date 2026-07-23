@@ -1,4 +1,4 @@
-import WorkingHoursService from "../services/hours.service";
+import WorkingHoursService from "../../services/dashboard/hours.service";
 import { Request, Response } from "express";
 
 class WorkingHoursController {

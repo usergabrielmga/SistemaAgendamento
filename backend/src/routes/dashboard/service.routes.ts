@@ -1,4 +1,4 @@
-import serviceController from "../controller/service.controller";
+import serviceController from "../../controller/dashboard/service.controller";
 import router from "./auth.routes";
 
 

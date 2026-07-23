@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { prisma } from "../lib/prisma";
+import { prisma } from "../../lib/prisma";
 
 class AuthService {
     static async loginService(username: string, password: string) {

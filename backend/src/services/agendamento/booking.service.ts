@@ -9,6 +9,7 @@ interface CreateBookingInput {
   name: string;
   phone: string;
   email: string;
+  observations?: string;
 }
 
 function validateBookingData(
@@ -75,12 +76,13 @@ export async function createBookingService(
   validateBookingData(data);
 
   const {
-  serviceId,
-  date,
-  hour,
-  name,
-  phone,
-} = data;
+    serviceId,
+    date,
+    hour,
+    name,
+    phone,
+    observations,
+  } = data;
 
 const email =
   data.email.trim().toLowerCase();
@@ -128,6 +130,8 @@ appointmentHour.setHours(
       hour: appointmentHour,
 
       status: "Agendado",
+
+      observations: observations ?? null,
     },
 
     include: {
@@ -148,6 +152,8 @@ appointmentHour.setHours(
   hour: appointment.hour,
 
   status: appointment.status,
+
+  observations: appointment.observations,
 };
 
   });
@@ -216,6 +222,7 @@ async function findOrCreateClient(
       email,
     },
   });
+  
 }
 
 

@@ -6,6 +6,7 @@ import {
 } from "../../services/agendamento/booking.service";
 
 import {
+  getAvailableDaysService,
   getAvailableHoursService,
 } from "../../services/agendamento/availability.service";
 
@@ -39,7 +40,44 @@ export async function getAvailableDays(
   req: Request,
   res: Response
 ): Promise<void> {
+  try {
+    const serviceId = Number(req.query.serviceId);
+    const month = Number(req.query.month);
+    const year = Number(req.query.year);
 
+    console.log({
+      serviceId,
+      month,
+      year,
+    });
+
+    if (!serviceId || !month || !year) {
+      res.status(400).json({
+        message: "Parâmetros inválidos.",
+      });
+
+      return;
+    }
+
+    const availableDays =
+      await prisma.$transaction((tx) =>
+        getAvailableDaysService(
+          tx,
+          serviceId,
+          month,
+          year
+        )
+      );
+
+    res.status(200).json(availableDays);
+
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Erro ao buscar dias disponíveis.",
+    });
+  }
 }
 
 

@@ -177,12 +177,17 @@ function getAvailableHours(
   date: Date,
   context: AvailabilityContext
 ) {
+  const currentDate =
+    format(date, "yyyy-MM-dd");
+
+
   const workingHours =
     context.workingHours.find(
       (workingHour) =>
         workingHour.day_of_week ===
         date.getDay()
     );
+
 
   if (
     !workingHours ||
@@ -193,29 +198,31 @@ function getAvailableHours(
     return [];
   }
 
+
   const appointments =
     context.appointments.filter(
       (appointment) =>
-        format(
-          appointment.date,
-          "yyyy-MM-dd"
-        ) === format(date, "yyyy-MM-dd")
+        appointment.date
+          .toISOString()
+          .substring(0, 10) === currentDate
     );
+
 
   const blockedDates =
     context.blockedDates.filter(
       (blocked) =>
-        format(
-          blocked.block_date,
-          "yyyy-MM-dd"
-        ) === format(date, "yyyy-MM-dd")
+        blocked.block_date
+          .toISOString()
+          .substring(0, 10) === currentDate
     );
+
 
   const slots =
     generateTimeSlots(
       workingHours.start_time,
       workingHours.end_time
     );
+
 
   return slots.filter((slot) => {
 
@@ -226,6 +233,7 @@ function getAvailableHours(
         appointments
       );
 
+
     const blockedConflict =
       hasBlockedConflict(
         slot,
@@ -233,12 +241,14 @@ function getAvailableHours(
         blockedDates
       );
 
+
     const fitsWorkingHours =
       finishesWithinWorkingHours(
         slot,
         context.service.duration,
         workingHours.end_time!
       );
+
 
     return (
       !appointmentConflict &&

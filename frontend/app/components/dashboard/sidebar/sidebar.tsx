@@ -2,6 +2,7 @@
 
 import SidebarItem from "./sidebarItem";
 import { routes, logout } from "@/app/lib/routes";
+import Logo from "@/app/imgs/beauty_studio_logo.png"
 
 export default function Sidebar() {
   return (
@@ -29,7 +30,7 @@ export default function Sidebar() {
             text-[#3a1c12]
             "
           >
-            JHENNYFFER.
+            <img src={Logo.src} alt="" />
           </h1>
 
         </div>

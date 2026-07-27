@@ -1,33 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  Calendar,
-  Clock3,
-  Pencil,
-  Trash2,
-} from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Calendar, Clock3, Pencil, Trash2 } from "lucide-react";
 
-import {
-  BlockedDate,
-  CreateBlockedDate,
-} from "@/app/types/dashboard/settings.type";
+import { blockedDateSchema, BlockedDateFormData } from "@/app/schemas/dashboard/blocked-date.schema";
+import { BlockedDate, CreateBlockedDate } from "@/app/types/dashboard/settings.type";
 
 interface Props {
   blockedDates: BlockedDate[];
-
-  onCreate: (
-    data: CreateBlockedDate
-  ) => Promise<void>;
-
-  onUpdate: (
-    id: number,
-    data: CreateBlockedDate
-  ) => Promise<void>;
-
-  onDelete: (
-    id: number
-  ) => Promise<void>;
+  onCreate: (data: CreateBlockedDate) => Promise<void>;
+  onUpdate: (id: number, data: CreateBlockedDate) => Promise<void>;
+  onDelete: (id: number) => Promise<void>;
 }
 
 export default function BlockedDatesCard({
@@ -36,39 +21,36 @@ export default function BlockedDatesCard({
   onUpdate,
   onDelete,
 }: Props) {
-  const [editing, setEditing] =
-    useState<BlockedDate | null>(null);
+  const [editing, setEditing] = useState<BlockedDate | null>(null);
 
-  const [blockDate, setBlockDate] =
-    useState("");
+  const formatDateInput = (date: string) => date.slice(0, 10);
+  const formatTimeInput = (time: string | null) => (time ? time.slice(11, 16) : "");
 
-  const [startTime, setStartTime] =
-    useState("");
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<BlockedDateFormData>({
+    resolver: zodResolver(blockedDateSchema),
+    defaultValues: {
+      block_date: "",
+      start_time: "",
+      end_time: "",
+      reason: "",
+    },
+  });
 
-  const [endTime, setEndTime] =
-    useState("");
-
-  const [reason, setReason] =
-    useState("");
-
-  const formatDateInput = (date: string) =>
-    date.slice(0, 10);
-
-  const formatTimeInput = (
-    time: string | null
-  ) => (time ? time.slice(11, 16) : "");
-
-  const clearForm = (
-    resetEditing = true
-  ) => {
+  const clearForm = (resetEditing = true) => {
     if (resetEditing) {
       setEditing(null);
     }
-
-    setBlockDate("");
-    setStartTime("");
-    setEndTime("");
-    setReason("");
+    reset({
+      block_date: "",
+      start_time: "",
+      end_time: "",
+      reason: "",
+    });
   };
 
   useEffect(() => {
@@ -77,41 +59,24 @@ export default function BlockedDatesCard({
       return;
     }
 
-    setBlockDate(
-      formatDateInput(editing.block_date)
-    );
+    reset({
+      block_date: formatDateInput(editing.block_date),
+      start_time: formatTimeInput(editing.start_time),
+      end_time: formatTimeInput(editing.end_time),
+      reason: editing.reason ?? "",
+    });
+  }, [editing, reset]);
 
-    setStartTime(
-      formatTimeInput(editing.start_time)
-    );
-
-    setEndTime(
-      formatTimeInput(editing.end_time)
-    );
-
-    setReason(
-      editing.reason ?? ""
-    );
-  }, [editing]);
-
-  const handleSubmit = async () => {
-    if (!blockDate) {
-      alert("Informe a data.");
-      return;
-    }
-
+  const onSubmit = async (data: BlockedDateFormData) => {
     const payload: CreateBlockedDate = {
-      block_date: blockDate,
-      start_time: startTime || null,
-      end_time: endTime || null,
-      reason,
+      block_date: data.block_date,
+      start_time: data.start_time || null,
+      end_time: data.end_time || null,
+      reason: data.reason || "",
     };
 
     if (editing) {
-      await onUpdate(
-        editing.id_block,
-        payload
-      );
+      await onUpdate(editing.id_block, payload);
     } else {
       await onCreate(payload);
     }
@@ -131,7 +96,7 @@ export default function BlockedDatesCard({
         </p>
       </div>
 
-      <div className="space-y-4 rounded-lg bg-[#ede0d4] p-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 rounded-lg bg-[#ede0d4] p-5">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-[170px_1fr]">
           <div>
             <label className="mb-1 block font-sans text-xs font-medium text-gray-500">
@@ -140,12 +105,14 @@ export default function BlockedDatesCard({
 
             <input
               type="date"
-              value={blockDate}
-              onChange={(e) =>
-                setBlockDate(e.target.value)
-              }
+              {...register("block_date")}
               className="h-10 w-full rounded-lg border border-[#E5E5E5] bg-[#FAFAFA] px-3 font-sans text-sm text-black outline-none transition focus:border-[#4D2615] focus:bg-white"
             />
+            {errors.block_date && (
+              <span className="mt-1 block font-sans text-xs text-red-500">
+                {errors.block_date.message}
+              </span>
+            )}
           </div>
 
           <div className="grid grid-cols-2 gap-3">
@@ -156,12 +123,14 @@ export default function BlockedDatesCard({
 
               <input
                 type="time"
-                value={startTime}
-                onChange={(e) =>
-                  setStartTime(e.target.value)
-                }
+                {...register("start_time")}
                 className="h-10 w-full rounded-lg border border-[#E5E5E5] bg-[#FAFAFA] px-3 font-sans text-sm text-black outline-none transition focus:border-[#4D2615] focus:bg-white"
               />
+              {errors.start_time && (
+                <span className="mt-1 block font-sans text-xs text-red-500">
+                  {errors.start_time.message}
+                </span>
+              )}
             </div>
 
             <div>
@@ -171,12 +140,14 @@ export default function BlockedDatesCard({
 
               <input
                 type="time"
-                value={endTime}
-                onChange={(e) =>
-                  setEndTime(e.target.value)
-                }
+                {...register("end_time")}
                 className="h-10 w-full rounded-lg border border-[#E5E5E5] bg-[#FAFAFA] px-3 font-sans text-sm text-black outline-none transition focus:border-[#4D2615] focus:bg-white"
               />
+              {errors.end_time && (
+                <span className="mt-1 block font-sans text-xs text-red-500">
+                  {errors.end_time.message}
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -188,17 +159,20 @@ export default function BlockedDatesCard({
 
           <textarea
             rows={2}
-            value={reason}
-            onChange={(e) =>
-              setReason(e.target.value)
-            }
+            {...register("reason")}
             placeholder="Ex: Férias, manutenção, feriado..."
             className="w-full resize-none rounded-lg border border-[#E5E5E5] bg-[#FAFAFA] px-3 py-2 font-sans text-sm text-black outline-none transition focus:border-[#4D2615] focus:bg-white"
           />
+          {errors.reason && (
+            <span className="mt-1 block font-sans text-xs text-red-500">
+              {errors.reason.message}
+            </span>
+          )}
         </div>
 
         <div className="flex justify-end gap-2">
           <button
+            type="button"
             onClick={() => clearForm()}
             className="h-10 cursor-pointer rounded-lg border border-[#E5E5E5] px-5 font-sans text-sm text-black hover:bg-gray-50"
           >
@@ -206,13 +180,14 @@ export default function BlockedDatesCard({
           </button>
 
           <button
-            onClick={handleSubmit}
-            className="h-10 cursor-pointer rounded-lg bg-[#4D2615] px-6 font-sans text-sm font-medium text-white hover:bg-[#3A1C10]"
+            type="submit"
+            disabled={isSubmitting}
+            className="h-10 cursor-pointer rounded-lg bg-[#4D2615] px-6 font-sans text-sm font-medium text-white hover:bg-[#3A1C10] disabled:opacity-60"
           >
             {editing ? "Salvar" : "Bloquear"}
           </button>
         </div>
-      </div>
+      </form>
 
       <hr className="my-5 border-[#ECE7E3]" />
 
@@ -233,9 +208,7 @@ export default function BlockedDatesCard({
                     <Calendar size={15} />
 
                     <span className="text-sm font-medium">
-                      {new Date(
-                        item.block_date
-                      ).toLocaleDateString("pt-BR")}
+                      {new Date(item.block_date).toLocaleDateString("pt-BR")}
                     </span>
                   </div>
 
@@ -243,11 +216,8 @@ export default function BlockedDatesCard({
                     <Clock3 size={15} />
 
                     <span className="font-sans text-sm">
-                      {item.start_time &&
-                      item.end_time
-                        ? `${formatTimeInput(
-                            item.start_time
-                          )} - ${formatTimeInput(
+                      {item.start_time && item.end_time
+                        ? `${formatTimeInput(item.start_time)} - ${formatTimeInput(
                             item.end_time
                           )}`
                         : "Dia inteiro"}
@@ -255,34 +225,25 @@ export default function BlockedDatesCard({
                   </div>
 
                   <p className="text-sm text-gray-500">
-                    {item.reason ||
-                      "Sem descrição"}
+                    {item.reason || "Sem descrição"}
                   </p>
                 </div>
 
                 <div className="flex gap-2">
                   <button
-                    onClick={() =>
-                      setEditing(item)
-                    }
+                    type="button"
+                    onClick={() => setEditing(item)}
                     className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#E5E5E5] transition hover:bg-[#F7F7F7]"
                   >
-                    <Pencil
-                      size={15}
-                      className="cursor-pointer text-black"
-                    />
+                    <Pencil size={15} className="cursor-pointer text-black" />
                   </button>
 
                   <button
-                    onClick={() =>
-                      onDelete(item.id_block)
-                    }
+                    type="button"
+                    onClick={() => onDelete(item.id_block)}
                     className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#E5E5E5] text-red-500 transition hover:bg-red-50"
                   >
-                    <Trash2
-                      size={15}
-                      className="cursor-pointer"
-                    />
+                    <Trash2 size={15} className="cursor-pointer" />
                   </button>
                 </div>
               </div>

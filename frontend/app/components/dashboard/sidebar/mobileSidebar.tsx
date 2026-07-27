@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import SidebarItem from "./sidebarItem";
 import { routes, logout } from "@/app/lib/routes";
+import Logo from "@/app/imgs/beauty_studio_logo.png"
 
 export default function MobileSidebar() {
   const [open, setOpen] = useState(false);
@@ -12,7 +13,7 @@ export default function MobileSidebar() {
     <>
       <header className="flex h-16 items-center justify-between border-b bg-white px-4 lg:hidden">
         <h1 className="font-serif text-2xl font-bold text-2xl text-[#3a1c12]">
-          JENYFER.
+          <img className="w-50" src={Logo.src} alt="" />
         </h1>
 
         <button onClick={() => setOpen(true)}>

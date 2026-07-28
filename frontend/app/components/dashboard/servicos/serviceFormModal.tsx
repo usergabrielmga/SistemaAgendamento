@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { X } from "lucide-react";
+import { toast } from "sonner";
 
 import { serviceSchema, ServiceFormData } from "@/app/schemas/dashboard/service.schema";
 import { Services } from "@/app/types/dashboard/services.type";
@@ -63,14 +64,16 @@ export default function ServiceFormModal({
     try {
       if (service) {
         await onUpdate(service.id_service, data);
+        toast.success("Serviço atualizado com sucesso.");
       } else {
         await onSave(data);
+        toast.success("Serviço cadastrado com sucesso.");
       }
 
       onClose();
     } catch (error) {
       console.error(error);
-      alert("Erro ao salvar serviço.");
+      toast.error("Erro ao cadastrar serviço.");
     }
   }
 

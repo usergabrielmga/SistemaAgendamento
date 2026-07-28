@@ -11,6 +11,7 @@ import {
 import { Services } from "@/app/types/dashboard/services.type";
 
 import { fetchServices } from "./queries/services.query";
+import { toast } from "sonner";
 
 
 export default function useServices() {
@@ -109,6 +110,8 @@ export default function useServices() {
           "services",
         ],
       });
+
+      toast.success("Serviço Deletado com sucesso.");
 
     },
 

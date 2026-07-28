@@ -9,6 +9,7 @@ import {
   WorkingHoursFormData,
 } from "@/app/schemas/dashboard/working-hours.schema";
 import { WorkingHour } from "@/app/types/dashboard/workingHours.type";
+import { toast } from "sonner";
 
 interface Props {
   workingHours: WorkingHour[];
@@ -77,6 +78,7 @@ export default function WorkingDaysCard({ workingHours, onSave }: Props) {
     }));
 
     onSave(payload);
+    toast.success("Horários salvos com sucesso.");
   };
 
   return (

@@ -22,6 +22,7 @@ import {
 import {
   fetchBlockedDates,
 } from "./queries/blockedDates.query";
+import { toast } from "sonner";
 
 
 
@@ -42,7 +43,7 @@ export default function useSettings() {
     queryKey:[
       "blocked-dates",
     ],
-
+    
     queryFn:
       fetchBlockedDates,
 
@@ -125,7 +126,7 @@ export default function useSettings() {
           "blocked-dates",
         ],
       });
-
+      toast.success("Horário bloqueado, deletado com sucesso.");
     },
 
   });

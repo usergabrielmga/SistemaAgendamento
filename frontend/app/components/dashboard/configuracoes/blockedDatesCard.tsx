@@ -7,6 +7,7 @@ import { Calendar, Clock3, Pencil, Trash2 } from "lucide-react";
 
 import { blockedDateSchema, BlockedDateFormData } from "@/app/schemas/dashboard/blocked-date.schema";
 import { BlockedDate, CreateBlockedDate } from "@/app/types/dashboard/settings.type";
+import { toast } from "sonner";
 
 interface Props {
   blockedDates: BlockedDate[];
@@ -77,8 +78,11 @@ export default function BlockedDatesCard({
 
     if (editing) {
       await onUpdate(editing.id_block, payload);
+       toast.success("Horário bloqueado, editado com sucesso.");
     } else {
       await onCreate(payload);
+      
+      toast.success("Horário bloqueado com sucesso.");
     }
 
     clearForm();

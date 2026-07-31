@@ -11,7 +11,13 @@ export default function ClientList({
   onSelect,
 }: Props) {
   return (
-    <div className="bg-white rounded-3xl border divide-y">
+    <div className="  client-scroll
+          max-h-[500px]
+          overflow-y-auto
+          rounded-3xl
+          border
+          bg-white
+          divide-y">
       {clients.map((client) => (
         <ClientCard
           key={client.id_client}

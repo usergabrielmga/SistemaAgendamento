@@ -1,4 +1,8 @@
+"use client";
+
 import { useQuery } from "@tanstack/react-query";
+import { format } from "date-fns";
+
 import { getAvailableHours } from "@/app/services/agendamento/booking.service";
 
 
@@ -6,21 +10,29 @@ export function useAvailableHours(
   serviceId?: number,
   date?: Date | null
 ) {
+
+  const formattedDate = date
+    ? format(date, "yyyy-MM-dd")
+    : undefined;
+
+
   return useQuery({
     queryKey: [
       "available-hours",
       serviceId,
-      date,
+      formattedDate,
     ],
 
     queryFn: () =>
       getAvailableHours(
         serviceId!,
-        date!
+        formattedDate!
       ),
 
     enabled:
       !!serviceId &&
-      !!date,
+      !!formattedDate,
+
+    staleTime: 0,
   });
 }

@@ -44,18 +44,14 @@ export async function getAvailableDays(
 
 export async function getAvailableHours(
   serviceId: number,
-  date: Date
+  date: string
 ) {
-
-  const formattedDate =
-    date.toISOString().split("T")[0];
-
 
   const response = await axios.get(
     `${API_URL}/${serviceId}/hours`,
     {
-      params:{
-        date: formattedDate,
+      params: {
+        date,
       },
     }
   );
@@ -63,7 +59,6 @@ export async function getAvailableHours(
 
   return response.data;
 }
-
 export async function createBooking(
   data: CreateBookingPayload
 ) {
@@ -74,4 +69,14 @@ export async function createBooking(
   );
 
   return response.data;
+}
+
+export async function getBooking(
+  id: number
+) {
+  const { data } = await axios.get(
+    `${API_URL}/${id}`
+  );
+
+  return data;
 }

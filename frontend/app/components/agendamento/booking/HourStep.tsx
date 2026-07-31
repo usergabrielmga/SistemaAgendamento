@@ -25,8 +25,11 @@ export default function HourStep({
     booking.booking.date
  );
 
- console.log("service:", booking.booking.service);
-console.log("date:", booking.booking.date);
+ console.log("================================");
+console.log("HORAS RECEBIDAS DA API");
+console.log(hours);
+console.log("HORÁRIO SELECIONADO:", booking.booking.hour);
+console.log("================================");
 
  return (
   <main className="min-h-screen w-full bg-[#F8F5F2]">

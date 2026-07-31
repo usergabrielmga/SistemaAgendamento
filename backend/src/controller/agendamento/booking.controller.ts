@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import {
   getServicesService,
   createBookingService,
+  getBookingService,
 } from "../../services/agendamento/booking.service";
 
 import {
@@ -195,4 +196,32 @@ export async function createBooking(
 
   }
 
+}
+
+export async function getBooking(
+  req: Request,
+  res: Response
+): Promise<void> {
+  try {
+    const id = Number(req.params.id);
+
+    const booking =
+      await getBookingService(id);
+
+    res.status(200).json(booking);
+
+  } catch (error) {
+
+    if (error instanceof Error) {
+      res.status(404).json({
+        message: error.message,
+      });
+
+      return;
+    }
+
+    res.status(500).json({
+      message: "Erro ao buscar agendamento.",
+    });
+  }
 }

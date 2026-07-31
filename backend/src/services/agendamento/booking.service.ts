@@ -72,7 +72,6 @@ export async function getServicesService() {
 export async function createBookingService(
   data: CreateBookingInput
 ) {
-
   validateBookingData(data);
 
   const {
@@ -84,82 +83,123 @@ export async function createBookingService(
     observations,
   } = data;
 
-const email =
-  data.email.trim().toLowerCase();
+  const email =
+    data.email.trim().toLowerCase();
+
+  console.log("====================================");
+  console.log("CRIANDO AGENDAMENTO");
+  console.log({
+    serviceId,
+    date,
+    hour,
+  });
 
   return prisma.$transaction(async (tx) => {
 
-  const client =
-    await findOrCreateClient(
+    const client =
+      await findOrCreateClient(
+        tx,
+        name,
+        phone,
+        email
+      );
+
+    // Cria a data sem sofrer influência do fuso horário
+    const [year, month, day] =
+      date.split("-").map(Number);
+
+    const appointmentDate =
+      new Date(year, month - 1, day);
+
+    console.log("====================================");
+    console.log("DATA RECEBIDA DO FRONT");
+    console.log(date);
+
+    console.log("DATE GERADA");
+    console.log(appointmentDate);
+
+    console.log("ISO");
+    console.log(appointmentDate.toISOString());
+
+    console.log("LOCAL");
+    console.log(appointmentDate.toString());
+    console.log("====================================");
+
+    await ensureSlotIsAvailable(
       tx,
-      name,
-      phone,
-      email
+      serviceId,
+      appointmentDate,
+      hour
     );
 
-  const appointmentDate = new Date(date);
+    const [hours, minutes] =
+      hour.split(":").map(Number);
 
- await ensureSlotIsAvailable(
-  tx,
-  serviceId,
-  appointmentDate,
-  hour
-);
+    // Campo TIME
+    const appointmentHour =
+      new Date(1970, 0, 1, hours, minutes, 0, 0);
 
-  const [hours, minutes] =
-  hour.split(":").map(Number);
+    console.log("====================================");
+    console.log("HORÁRIO GERADO");
+    console.log({
+      appointmentHour,
+      iso: appointmentHour.toISOString(),
+      local: appointmentHour.toString(),
+    });
+    console.log("====================================");
 
-const appointmentHour =
-  new Date(appointmentDate);
+    console.log("====================================");
+    console.log("DATA ENVIADA PARA O PRISMA");
+    console.log({
+      appointmentDate,
+      iso: appointmentDate.toISOString(),
+      local: appointmentDate.toString(),
+    });
+    console.log("====================================");
 
-appointmentHour.setHours(
-  hours,
-  minutes,
-  0,
-  0
-);
+    const appointment =
+      await tx.appointments.create({
+        data: {
+          id_client: client.id_client,
+          id_service: serviceId,
+          date: appointmentDate,
+          hour: appointmentHour,
+          status: "Agendado",
+          observations:
+            observations ?? null,
+        },
+        include: {
+          clients: true,
+          services: true,
+        },
+      });
 
-  const appointment =
-  await tx.appointments.create({
-    data: {
-      id_client: client.id_client,
-      id_service: serviceId,
+    console.log("====================================");
+    console.log("AGENDAMENTO SALVO");
+    console.log({
+      id: appointment.id_appointment,
+      date: appointment.date,
+      hour: appointment.hour,
+    });
+    console.log("====================================");
 
-      date: appointmentDate,
+    return {
+      id: appointment.id_appointment,
 
-      hour: appointmentHour,
+      client: appointment.clients.name,
 
-      status: "Agendado",
+      service: appointment.services.name,
 
-      observations: observations ?? null,
-    },
+      date: appointment.date,
 
-    include: {
-      clients: true,
-      services: true,
-    },
+      hour: appointment.hour,
+
+      status: appointment.status,
+
+      observations:
+        appointment.observations,
+    };
   });
-
-  return {
-  id: appointment.id_appointment,
-
-  client: appointment.clients.name,
-
-  service: appointment.services.name,
-
-  date: appointment.date,
-
-  hour: appointment.hour,
-
-  status: appointment.status,
-
-  observations: appointment.observations,
-};
-
-  });
-
-  
-
 }
 
 
@@ -232,6 +272,14 @@ async function ensureSlotIsAvailable(
   date: Date,
   hour: string
 ) {
+  console.log("====================================");
+  console.log("VALIDANDO HORÁRIO");
+  console.log({
+    serviceId,
+    date,
+    hour,
+  });
+
   const availableHours =
     await getAvailableHoursService(
       tx,
@@ -239,12 +287,66 @@ async function ensureSlotIsAvailable(
       date
     );
 
+  console.log("HORÁRIOS DISPONÍVEIS:");
+  console.log(availableHours);
+
   const available =
     availableHours.includes(hour);
+
+  console.log("HORÁRIO DISPONÍVEL?", available);
 
   if (!available) {
     throw new Error(
       "Este horário acabou de ser reservado. Escolha outro horário."
     );
   }
+}
+
+
+export async function getBookingService(
+  id: number
+) {
+  const appointment =
+    await prisma.appointments.findUnique({
+      where: {
+        id_appointment: id,
+      },
+      include: {
+        clients: true,
+        services: true,
+      },
+    });
+
+  if (!appointment) {
+    throw new Error(
+      "Agendamento não encontrado."
+    );
+  }
+
+  return {
+  id_appointment: appointment.id_appointment,
+
+  client: {
+    id_client: appointment.clients.id_client,
+    name: appointment.clients.name,
+    phone: appointment.clients.telephone,
+    email: appointment.clients.email,
+  },
+
+  service: {
+    id_service: appointment.services.id_service,
+    name: appointment.services.name,
+    description: appointment.services.description,
+    duration: appointment.services.duration,
+    price: Number(appointment.services.price),
+  },
+
+  date: appointment.date.toISOString().split("T")[0],
+
+  hour: appointment.hour,
+
+  status: appointment.status,
+
+  observations: appointment.observations,
+};
 }

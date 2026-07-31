@@ -49,58 +49,83 @@ async function loadAvailabilityContext(
   month: number,
   year: number
 ): Promise<AvailabilityContext> {
+
   const firstDay = startOfMonth(
     new Date(year, month - 1)
   );
 
   const lastDay = endOfMonth(firstDay);
 
+  console.log("================================");
+  console.log("PERÍODO DA CONSULTA");
+  console.log({
+    firstDay,
+    lastDay,
+  });
+  console.log("================================");
+
   const [
-  service,
-  workingHours,
-  appointments,
-  blockedDates,
-] = await Promise.all([
+    service,
+    workingHours,
+    appointments,
+    blockedDates,
+  ] = await Promise.all([
 
-  tx.services.findUnique({
-    where: {
-      id_service: serviceId,
-    },
-    select: {
-      id_service: true,
-      duration: true,
-    },
-  }),
-
-  tx.working_hours.findMany(),
-
-  tx.appointments.findMany({
-    where: {
-      status: "Agendado",
-      date: {
-        gte: firstDay,
-        lte: lastDay,
+    tx.services.findUnique({
+      where: {
+        id_service: serviceId,
       },
-    },
-    include: {
-      services: {
-        select: {
-          duration: true,
+      select: {
+        id_service: true,
+        duration: true,
+      },
+    }),
+
+    tx.working_hours.findMany(),
+
+    tx.appointments.findMany({
+      where: {
+        status: "Agendado",
+        date: {
+          gte: firstDay,
+          lte: lastDay,
         },
       },
-    },
-  }),
-
-  tx.blocked_dates.findMany({
-    where: {
-      block_date: {
-        gte: firstDay,
-        lte: lastDay,
+      include: {
+        services: {
+          select: {
+            duration: true,
+          },
+        },
       },
-    },
-  }),
+    }),
 
-]);
+    tx.blocked_dates.findMany({
+      where: {
+        block_date: {
+          gte: firstDay,
+          lte: lastDay,
+        },
+      },
+    }),
+
+  ]);
+
+  console.log("================================");
+  console.log("AGENDAMENTOS ENCONTRADOS");
+  console.log("TOTAL:", appointments.length);
+
+  appointments.forEach((appointment) => {
+    console.log({
+      id: appointment.id_appointment,
+      date: appointment.date,
+      hour: appointment.hour,
+      status: appointment.status,
+      duration: appointment.services.duration,
+    });
+  });
+
+  console.log("================================");
 
   if (!service) {
     throw new Error("Serviço não encontrado.");
@@ -177,15 +202,17 @@ function getAvailableHours(
   date: Date,
   context: AvailabilityContext
 ) {
-  const currentDate =
-    format(date, "yyyy-MM-dd");
+
+  const currentDate = format(
+    date,
+    "yyyy-MM-dd"
+  );
 
 
   const workingHours =
     context.workingHours.find(
       (workingHour) =>
-        workingHour.day_of_week ===
-        date.getDay()
+        workingHour.day_of_week === date.getDay()
     );
 
 
@@ -202,19 +229,39 @@ function getAvailableHours(
   const appointments =
     context.appointments.filter(
       (appointment) =>
-        appointment.date
-          .toISOString()
-          .substring(0, 10) === currentDate
+        format(
+          appointment.date,
+          "yyyy-MM-dd"
+        ) === currentDate
     );
 
 
   const blockedDates =
     context.blockedDates.filter(
       (blocked) =>
-        blocked.block_date
-          .toISOString()
-          .substring(0, 10) === currentDate
+        format(
+          blocked.block_date,
+          "yyyy-MM-dd"
+        ) === currentDate
     );
+
+
+  console.log("================================");
+  console.log("DATA CONSULTADA:", currentDate);
+  console.log("AGENDAMENTOS DO DIA:");
+  console.log(
+    appointments.map((appointment)=>({
+      date: format(
+        appointment.date,
+        "yyyy-MM-dd"
+      ),
+      hour: format(
+        appointment.hour,
+        "HH:mm"
+      )
+    }))
+  );
+  console.log("================================");
 
 
   const slots =
@@ -224,7 +271,8 @@ function getAvailableHours(
     );
 
 
-  return slots.filter((slot) => {
+  return slots.filter((slot)=>{
+
 
     const appointmentConflict =
       hasAppointmentConflict(
@@ -257,6 +305,7 @@ function getAvailableHours(
     );
 
   });
+
 }
 
 
@@ -266,42 +315,81 @@ function hasAppointmentConflict(
   appointments: AppointmentData[]
 ): boolean {
 
-  const [hours, minutes] = slot
-    .split(":")
-    .map(Number);
+
+  const [hours, minutes] =
+    slot.split(":").map(Number);
+
 
   const slotStartMinutes =
     hours * 60 + minutes;
 
+
   const slotEndMinutes =
     slotStartMinutes + serviceDuration;
 
+
+
   for (const appointment of appointments) {
-     console.log("AGENDAMENTO ANALISADO:", {
-    date: appointment.date,
-    hour: appointment.hour,
-    duration: appointment.services.duration,
-  });
+
 
     const appointmentStart =
-      appointment.hour.getHours() * 60 +
-      appointment.hour.getMinutes();
+      Number(
+        format(
+          appointment.hour,
+          "HH"
+        )
+      ) * 60
+      +
+      Number(
+        format(
+          appointment.hour,
+          "mm"
+        )
+      );
+
 
     const appointmentEnd =
       appointmentStart +
       appointment.services.duration;
 
-    if (
+
+
+    console.log({
+      slot,
+      appointmentHour:
+        format(
+          appointment.hour,
+          "HH:mm"
+        ),
+      slotStartMinutes,
+      slotEndMinutes,
+      appointmentStart,
+      appointmentEnd,
+    });
+
+
+
+    const conflict =
       slotStartMinutes < appointmentEnd &&
-      slotEndMinutes > appointmentStart
-    ) {
+      slotEndMinutes > appointmentStart;
+
+
+
+    if(conflict){
+      console.log(
+        "HORÁRIO BLOQUEADO:",
+        slot
+      );
+
       return true;
     }
+
   }
 
-  return false;
-}
 
+  return false;
+
+}
 
 function hasBlockedConflict(
   slot: string,

@@ -5,6 +5,7 @@ import {
   getServices,
   getAvailableHours,
   getAvailableDays,
+  getBooking,
 } from "../../controller/agendamento/booking.controller";
 
 const router = Router();
@@ -23,5 +24,9 @@ router.get(
 
 router.post("/booking", createBooking);
 
+router.get(
+  "/booking/:id",
+  getBooking
+);
 
 export default router;

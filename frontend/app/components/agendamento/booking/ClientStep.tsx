@@ -9,12 +9,14 @@ import BookingStepper from "./BookingStepper";
 import { UseBookingReturn } from "@/app/hooks/agendamento/useBooking";
 import { useCreateBooking } from "@/app/hooks/agendamento/mutations/create-booking.mutation";
 import { bookingSchema, BookingFormData } from "@/app/schemas/agendamento/booking.schema";
+import { useRouter } from "next/navigation";
 
 interface ClientStepProps {
   booking: UseBookingReturn;
 }
 
 export default function ClientStep({ booking }: ClientStepProps) {
+  const router = useRouter();
   const createBookingMutation = useCreateBooking();
 
   const {
@@ -56,7 +58,13 @@ export default function ClientStep({ booking }: ClientStepProps) {
       observations: data.observations || "",
     };
 
-    createBookingMutation.mutate(payload);
+      createBookingMutation.mutate(payload, {
+    onSuccess: (bookingCreated) => {
+      router.push(
+        `/agendamento/success/${bookingCreated.id}`
+      );
+    },
+  });
   };
 
   return (

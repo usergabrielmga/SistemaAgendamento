@@ -1,9 +1,10 @@
-import router from "./client.routes";
+import { Router } from "express";
 import authController from "../../controller/dashboard/auth.controller";
 
-router.post("/login", async (req, res) => {
-    authController.login(req, res);
-});
+const router = Router();
 
+router.post("/login", async (req, res) => {
+    await authController.login(req, res);
+});
 
 export default router;

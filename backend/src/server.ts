@@ -8,7 +8,7 @@ import workingHoursRoutes from './routes/dashboard/hours.routes';
 import blockedDatesRoutes from './routes/dashboard/blocked.dates.routes';
 import dashboardRoutes from './routes/dashboard/dashbord.routes';
 import bookingRoutes from "./routes/agendamento/booking.routes";
-
+import servicesRoutes from './routes/home/services.routes';
 
 const PORT = 3001;
 
@@ -20,6 +20,7 @@ app.use(workingHoursRoutes);
 app.use(blockedDatesRoutes);
 app.use("/dashboard", dashboardRoutes);
 app.use(bookingRoutes);
+app.use(servicesRoutes);
 
 app.listen(PORT, async () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`)

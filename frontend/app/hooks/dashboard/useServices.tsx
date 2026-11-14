@@ -1,7 +1,6 @@
 "use client";
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-
 import {
   createService,
   updateService,
@@ -9,17 +8,11 @@ import {
 } from "@/app/services/dashboard/services.service";
 
 import { Services } from "@/app/types/dashboard/services.type";
-
 import { fetchServices } from "./queries/services.query";
 import { toast } from "sonner";
 
-
 export default function useServices() {
-
-
   const queryClient = useQueryClient();
-
-
 
   const {
     data: services = [],
@@ -36,35 +29,19 @@ export default function useServices() {
 
   });
 
-
-
-
-
   const createMutation = useMutation({
-
     mutationFn:
       createService,
-
-
     onSuccess: () => {
-
       queryClient.invalidateQueries({
         queryKey:[
           "services",
         ],
       });
-
     },
-
   });
 
-
-
-
-
-
   const updateMutation = useMutation({
-
     mutationFn:
       ({
         id_service,
@@ -77,8 +54,6 @@ export default function useServices() {
           id_service,
           service
         ),
-
-
     onSuccess: () => {
 
       queryClient.invalidateQueries({
@@ -86,25 +61,13 @@ export default function useServices() {
           "services",
         ],
       });
-
     },
-
   });
 
-
-
-
-
-
-
   const deleteMutation = useMutation({
-
     mutationFn:
       deleteService,
-
-
     onSuccess: () => {
-
       queryClient.invalidateQueries({
         queryKey:[
           "services",
@@ -112,38 +75,21 @@ export default function useServices() {
       });
 
       toast.success("Serviço Deletado com sucesso.");
-
     },
-
   });
-
-
-
-
-
-
 
   async function create(
     service: Omit<Services,"id_service">
   ){
-
     await createMutation.mutateAsync(
       service
     );
-
   }
-
-
-
-
-
-
 
   async function update(
     id_service:number,
     service:Omit<Services,"id_service">
   ){
-
     await updateMutation.mutateAsync({
       id_service,
       service,
@@ -151,41 +97,20 @@ export default function useServices() {
 
   }
 
-
-
-
-
-
-
   async function remove(
     id_service:number
   ){
-
     await deleteMutation.mutateAsync(
       id_service
     );
-
   }
 
-
-
-
-
-
   return {
-
     services,
-
     loading,
-
     error,
-
     create,
-
     update,
-
     remove,
-
   };
-
 }

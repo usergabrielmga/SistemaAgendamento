@@ -15,14 +15,7 @@ interface CreateBookingInput {
 function validateBookingData(
   data: CreateBookingInput
 ) {
-  const {
-    serviceId,
-    date,
-    hour,
-    name,
-    phone,
-    email,
-  } = data;
+  const { serviceId, date, hour, name, phone, email } = data;
 
   if (!serviceId) {
     throw new Error("Serviço é obrigatório.");
@@ -185,23 +178,16 @@ export async function createBookingService(
 
     return {
       id: appointment.id_appointment,
-
       client: appointment.clients.name,
-
       service: appointment.services.name,
-
       date: appointment.date,
-
       hour: appointment.hour,
-
       status: appointment.status,
-
       observations:
-        appointment.observations,
+      appointment.observations,
     };
   });
 }
-
 
 
 async function findOrCreateClient(
@@ -236,7 +222,6 @@ async function findOrCreateClient(
   console.log("CLIENTE ENCONTRADO:");
   console.log(existingClient);
 
-
   if (existingClient) {
 
     return tx.clients.update({
@@ -251,9 +236,7 @@ async function findOrCreateClient(
 
   }
 
-
   console.log("CRIANDO NOVO CLIENTE");
-
 
   return tx.clients.create({
     data: {
@@ -342,11 +325,8 @@ export async function getBookingService(
   },
 
   date: appointment.date.toISOString().split("T")[0],
-
   hour: appointment.hour,
-
   status: appointment.status,
-
   observations: appointment.observations,
 };
 }

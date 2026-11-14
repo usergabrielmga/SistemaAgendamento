@@ -7,9 +7,7 @@ import { fetchClients } from "./queries/client.query";
 
 
 export default function useClients() {
-
   const [search, setSearch] = useState("");
-
 
   const {
     data: clients = [],
@@ -21,37 +19,26 @@ export default function useClients() {
     queryKey: [
       "clients"
     ],
-
     queryFn:
       fetchClients,
 
   });
 
-
-
   const filteredClients = useMemo(() => {
-
     return clients.filter(
       (client) => {
 
         const name =
           client.name
             .toLowerCase();
-
-
         const telephone =
           client.telephone;
-
-
         const searchValue =
           search.toLowerCase();
-
-
         return (
           name.includes(searchValue) ||
           telephone.includes(search)
         );
-
       }
     );
 
@@ -60,24 +47,14 @@ export default function useClients() {
     search
   ]);
 
-
-
   return {
-
     search,
-
     setSearch,
-
     filteredClients,
-
     clients,
-
     isLoading,
-
     error,
-
     refetch,
-
   };
 
 }

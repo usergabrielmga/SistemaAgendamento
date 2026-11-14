@@ -4,9 +4,7 @@ import { getServices } from "@/app/services/dashboard/services.service";
 
 import { AgendaAppointment } from "@/app/types/dashboard/appointments.type";
 
-
 export async function fetchAgendaAppointments(): Promise<AgendaAppointment[]> {
-
   const [
     appointments,
     clients,
@@ -17,14 +15,12 @@ export async function fetchAgendaAppointments(): Promise<AgendaAppointment[]> {
     getServices(),
   ]);
 
-
   return appointments.map((appointment:any)=>{
 
     const client = clients.find(
       (client:any)=>
         client.id_client === appointment.id_client
     );
-
 
     const service = services.find(
       (service:any)=>
@@ -33,7 +29,6 @@ export async function fetchAgendaAppointments(): Promise<AgendaAppointment[]> {
 
 
     return {
-
       id_appointment:
         appointment.id_appointment,
 
@@ -45,7 +40,6 @@ export async function fetchAgendaAppointments(): Promise<AgendaAppointment[]> {
 
       email:
         client?.email ?? "",
-
 
       service:
         service?.name ?? "Serviço",
@@ -68,15 +62,12 @@ export async function fetchAgendaAppointments(): Promise<AgendaAppointment[]> {
           }
         ),
 
-
       status:
         appointment.status,
 
       date:
         appointment.date,
-
     };
-
   });
 
 }

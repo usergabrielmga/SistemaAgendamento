@@ -3,15 +3,11 @@
 import { Plus } from "lucide-react";
 
 interface Props {
-
   onCreate: () => void;
-
 }
 
 export default function ServiceHeader({
-
   onCreate,
-
 }: Props) {
 
   return (
@@ -21,7 +17,6 @@ export default function ServiceHeader({
         flex
         flex-col
         gap-4
-
         sm:flex-row
         sm:items-center
         sm:justify-between
@@ -42,26 +37,17 @@ export default function ServiceHeader({
         onClick={onCreate}
         className="
           w-full
-
           sm:w-auto
-
           h-11
-
           px-5
-
           rounded-full
-
           bg-[#4D2615]
-
           text-white
-
           flex
           items-center
           justify-center
           gap-2
-
           hover:bg-[#3A1C10]
-
           transition
           font-sans
           cursor-pointer
@@ -69,11 +55,8 @@ export default function ServiceHeader({
       >
 
         <Plus size={18} />
-
         Novo serviço
-
       </button>
-
     </div>
 
   );

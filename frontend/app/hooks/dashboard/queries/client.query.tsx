@@ -8,7 +8,6 @@ import { Services } from "@/app/types/dashboard/services.type";
 
 
 export async function fetchClients(): Promise<ClientDetails[]> {
-
   const [
     clients,
     appointments,
@@ -19,14 +18,12 @@ export async function fetchClients(): Promise<ClientDetails[]> {
     getServices(),
   ]);
 
-
   const data = clients.map((client: any) => {
 
     const clientAppointments = appointments.filter(
       (appointment: Appointment) =>
         appointment.id_client === client.id_client
     );
-
 
     const history = clientAppointments.map(
       (appointment: Appointment) => {
@@ -36,19 +33,15 @@ export async function fetchClients(): Promise<ClientDetails[]> {
             service.id_service === appointment.id_service
         );
 
-
         return {
           id_appointment:
             appointment.id_appointment,
-
           service:
             service?.name ?? "Serviço",
-
           date:
             new Date(
               appointment.date
             ).toLocaleDateString("pt-BR"),
-
           status:
             appointment.status,
         };
@@ -59,16 +52,12 @@ export async function fetchClients(): Promise<ClientDetails[]> {
 
     return {
       ...client,
-
       totalAppointments:
         clientAppointments.length,
-
       history,
-
     };
 
   });
-
 
   return data;
 }

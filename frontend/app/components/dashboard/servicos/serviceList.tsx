@@ -1,15 +1,12 @@
 "use client";
 
 import ServiceCard from "./serviceCard";
-
 import { Services } from "@/app/types/dashboard/services.type";
 
 interface Props {
   services: Services[];
   loading: boolean;
-
   onEdit: (service: Services) => void;
-
   onDelete?: (service: Services) => void;
 }
 
@@ -24,15 +21,10 @@ export default function ServiceList({
       <div
         className="
           bg-white
-
           rounded-3xl
-
           border
-
           py-10
-
           text-center
-
           text-gray-500
         "
       >
@@ -46,15 +38,10 @@ export default function ServiceList({
       <div
         className="
           bg-white
-
           rounded-3xl
-
           border
-
           py-10
-
           text-center
-
           text-gray-500
         "
       >
@@ -65,18 +52,14 @@ export default function ServiceList({
 
   return (
     <div className="space-y-4">
-
       {services.map((service) => (
-
         <ServiceCard
           key={service.id_service}
           service={service}
           onEdit={onEdit}
           onDelete={onDelete}
         />
-
       ))}
-
     </div>
   );
 }

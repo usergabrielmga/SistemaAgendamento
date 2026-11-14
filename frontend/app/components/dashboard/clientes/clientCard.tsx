@@ -20,14 +20,12 @@ export default function ClientCard({
         flex
         items-center
         justify-between
-
         px-4
         py-4
         font-sans
         md:px-6
         hover:bg-gray-50
         transition
-        cur
       "
     >
 
@@ -37,11 +35,8 @@ export default function ClientCard({
           className="
             w-12
             h-12
-
             rounded-full
-
             bg-[#FAF4F2]
-            
             flex
             items-center
             justify-center
@@ -68,16 +63,11 @@ export default function ClientCard({
       </div>
 
       <div className="flex items-center gap-4">
-
-        
-
         <ChevronRight
           size={18}
           className="text-gray-400"
         />
-
       </div>
-
     </button>
   );
 }

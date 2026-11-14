@@ -14,8 +14,8 @@ export default function SidebarItem({
   href,
   icon: Icon,
 }: Props) {
+  
   const pathname = usePathname();
-
   const active = pathname === href;
 
   return (

@@ -5,7 +5,6 @@ import { format } from "date-fns";
 
 import { getAvailableHours } from "@/app/services/agendamento/booking.service";
 
-
 export function useAvailableHours(
   serviceId?: number,
   date?: Date | null
@@ -14,7 +13,6 @@ export function useAvailableHours(
   const formattedDate = date
     ? format(date, "yyyy-MM-dd")
     : undefined;
-
 
   return useQuery({
     queryKey: [

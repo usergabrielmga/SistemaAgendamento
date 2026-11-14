@@ -12,7 +12,6 @@ import {
 
 
 export default function useAgenda(){
-
   const [
     selectedDate,
     setSelectedDate
@@ -30,13 +29,9 @@ export default function useAgenda(){
 
     queryFn:
       fetchAgendaAppointments,
-
   });
 
-
-
   const appointmentsDay = useMemo(()=>{
-
     return appointments.filter(
       appointment =>
         isAppointmentDay(
@@ -53,22 +48,14 @@ export default function useAgenda(){
 
 
   return {
-
     week:
       getWeekDays(selectedDate),
-
     selectedDate,
-
     setSelectedDate,
-
     appointmentsDay,
-
     appointments,
-
     isLoading,
-
     error,
-
     refetch,
 
   };

@@ -34,7 +34,6 @@ export default function ServicesSection() {
               description={service.description}
               duration={service.duration}
               price={service.price}
-              onBook={() => console.log(`Agendando: ${service.name}`)}
             />
           ))}
         </div>

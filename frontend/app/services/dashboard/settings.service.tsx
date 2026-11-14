@@ -5,7 +5,7 @@ import {
   CreateBlockedDate,
 } from "../../types/dashboard/settings.type";
 
-const API_URL = "http://localhost:3001";
+const API_URL = "https://sistema-agendamento-lovat.vercel.app";
 
 export async function getBlockedDates() {
   const { data } = await axios.get<BlockedDate[]>(

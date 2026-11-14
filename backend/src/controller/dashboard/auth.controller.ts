@@ -3,6 +3,8 @@ import AuthService from "../../services/dashboard/auth.service";
 
 class AuthController {
     static async login(req: Request, res: Response) {
+        console.log("LOGIN RECEBIDO:", req.body);
+
         const { username, password } = req.body;
 
         if (!username || !password) {
@@ -14,10 +16,10 @@ class AuthController {
         try {
             const token = await AuthService.loginService(username, password);
 
-            return res.status(200).json({
-                token,
-            });
+            return res.status(200).json({ token });
         } catch (error) {
+            console.error("ERRO LOGIN:", error);
+
             return res.status(401).json({
                 error: "Usuário ou senha inválidos",
             });

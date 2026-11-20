@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3001/booking";
+const API_URL = "https://sistema-agendamento-lovat.vercel.app/booking";
 
 export async function getServices() {
   try {

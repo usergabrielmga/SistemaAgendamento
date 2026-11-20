@@ -21,9 +21,13 @@ export default function GalleryGrid() {
   return (
     <div
       className="
-        mt-20
+        mt-10
+        sm:mt-14
+        lg:mt-20
         grid
-        gap-6
+        gap-4
+        sm:gap-5
+        lg:gap-6
         md:grid-cols-2
         xl:grid-cols-3
       "

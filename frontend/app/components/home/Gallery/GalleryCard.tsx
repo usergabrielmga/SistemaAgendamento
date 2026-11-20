@@ -13,7 +13,8 @@ export default function GalleryCard({
     <div
       className="
         overflow-hidden
-        rounded-[28px]
+        rounded-[20px]
+        sm:rounded-[28px]
         group
       "
     >
@@ -23,7 +24,9 @@ export default function GalleryCard({
         width={300}
         height={400}
         className="
-          h-[420px]
+          h-[280px]
+          sm:h-[350px]
+          lg:h-[420px]
           w-full
           object-cover
           transition-transform

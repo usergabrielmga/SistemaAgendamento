@@ -5,7 +5,7 @@ import {
   UpdateWorkingHours,
 } from "../../types/dashboard/workingHours.type";
 
-const API_URL = "https://sistema-agendamento-lovat.vercel.app/working-hours";
+const API_URL = "http://localhost:3001/working-hours";
 
 export async function getWorkingHours() {
 

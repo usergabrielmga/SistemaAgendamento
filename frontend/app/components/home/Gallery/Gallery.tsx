@@ -7,9 +7,9 @@ export default function Gallery() {
   return (
     <section
       id="galeria"
-      className="bg-[#FAF7F4] py-28"
+      className="bg-[#FAF7F4] py-16 md:py-20 lg:py-28"
     >
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6">
         <GalleryHeader />
 
         <GalleryGrid />

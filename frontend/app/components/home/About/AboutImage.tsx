@@ -5,7 +5,7 @@ import imgFotoProfissional from "../../../imgs/foto_profissional.jpeg";
 
 export default function AboutImage() {
   return (
-    <div className="relative">
+    <div className="relative w-full">
 
       <Image
         src={imgFotoProfissional}
@@ -13,30 +13,40 @@ export default function AboutImage() {
         width={520}
         height={640}
         className="
-          rounded-[32px]
+          w-full
+          max-w-[420px]
+          mx-auto
+          rounded-[24px]
+          sm:rounded-[32px]
           object-cover
           shadow-xl
+          lg:max-w-none
         "
       />
 
       <div
         className="
           absolute
-          right-6
-          top-6
-          rounded-2xl
+          right-3
+          top-3
+          sm:right-6
+          sm:top-6
+          rounded-xl
+          sm:rounded-2xl
           bg-[#D89B8A]
-          px-6
-          py-5
+          px-4
+          py-3
+          sm:px-6
+          sm:py-5
           text-white
           shadow-lg
         "
       >
-        <h3 className="text-3xl font-bold">
+        <h3 className="text-2xl sm:text-3xl font-bold">
           3+
         </h3>
 
-        <p className="text-sm opacity-90">
+        <p className="text-xs sm:text-sm opacity-90">
           anos de experiência
         </p>
       </div>

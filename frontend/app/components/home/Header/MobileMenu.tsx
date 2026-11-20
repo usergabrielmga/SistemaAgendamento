@@ -3,12 +3,34 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
+const links = [
+  {
+    label: "Início",
+    href: "#inicio",
+  },
+  {
+    label: "Sobre",
+    href: "#sobre",
+  },
+  {
+    label: "Serviços",
+    href: "#servicos",
+  },
+  {
+    label: "Galeria",
+    href: "#galeria",
+  },
+  {
+    label: "Contato",
+    href: "#contato",
+  },
+];
+
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="lg:hidden">
-      {/* Botão Hambúrguer */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
@@ -18,33 +40,19 @@ export default function MobileMenu() {
         {isOpen ? <X size={28} /> : <Menu size={28} />}
       </button>
 
-      {/* Menu */}
       {isOpen && (
         <div className="absolute left-0 top-20 w-full border-t border-[#EEE7E1] bg-[#FCF8F5] px-6 py-6 shadow-md">
           <nav className="flex flex-col gap-5">
-            <a
-              href="/"
-              onClick={() => setIsOpen(false)}
-              className="text-sm font-medium text-[#8A756B] transition-colors hover:text-[#3A1C12]"
-            >
-              Início
-            </a>
-
-            <a
-              href="/servicos"
-              onClick={() => setIsOpen(false)}
-              className="text-sm font-medium text-[#8A756B] transition-colors hover:text-[#3A1C12]"
-            >
-              Serviços
-            </a>
-
-            <a
-              href="/sobre"
-              onClick={() => setIsOpen(false)}
-              className="text-sm font-medium text-[#8A756B] transition-colors hover:text-[#3A1C12]"
-            >
-              Sobre
-            </a>
+            {links.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className="text-sm font-medium text-[#8A756B] transition-colors hover:text-[#3A1C12]"
+              >
+                {link.label}
+              </a>
+            ))}
 
             <a
               href="/login"

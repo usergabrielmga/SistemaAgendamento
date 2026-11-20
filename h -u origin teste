@@ -1,0 +1,12 @@
+  feature/add-zod-validation[m
+  feature/booking-availability[m
+  feature/booking-confirmation-page[m
+  feature/booking-flow[m
+  feature/clients[m
+  feature/configuracoes[m
+  feature/dashboard[m
+  feature/toasts[m
+  main[m
+  refactor/component-cleanup[m
+  refactor/ui-improvements[m
+* [32mteste[m

@@ -4,12 +4,13 @@ import { ArrowRight } from "lucide-react";
 
 export default function CTA() {
   return (
-    <section className="bg-[#3A1C12] py-28">
-      <div className="mx-auto flex max-w-5xl flex-col items-center px-6 text-center">
+    <section className="bg-[#3A1C12] py-16 md:py-20 lg:py-28">
+      <div className="mx-auto flex max-w-5xl flex-col items-center px-5 sm:px-6 text-center">
 
         <span
           className="
-            text-sm
+            text-[10px]
+            sm:text-sm
             uppercase
             tracking-[0.35em]
             text-[#D9B7A8]
@@ -20,9 +21,11 @@ export default function CTA() {
 
         <h2
           className="
-            mt-6
+            mt-4
+            md:mt-6
             max-w-3xl
-            text-4xl
+            text-3xl
+            sm:text-4xl
             font-bold
             leading-tight
             text-white
@@ -36,10 +39,14 @@ export default function CTA() {
 
         <p
           className="
-            mt-8
+            mt-5
+            md:mt-8
             max-w-2xl
-            text-lg
-            leading-8
+            text-sm
+            sm:text-base
+            md:text-lg
+            leading-7
+            md:leading-8
             text-[#E7D9D2]
           "
         >
@@ -51,14 +58,20 @@ export default function CTA() {
         <a
           href="/agendamento"
           className="
-            mt-12
+            mt-8
+            md:mt-12
             inline-flex
             items-center
-            gap-3
+            gap-2
+            md:gap-3
             rounded-full
             bg-white
-            px-8
-            py-4
+            px-6
+            py-3
+            md:px-8
+            md:py-4
+            text-sm
+            md:text-base
             font-semibold
             text-[#3A1C12]
             transition-all

@@ -10,7 +10,7 @@ interface CreateBookingPayload {
   email: string;
 }
 
-const API_URL = "https://sistema-agendamento-lovat.vercel.app/booking";
+const API_URL = "http://localhost:3001/booking";
 
 export async function getServices(): Promise<BookingService[]> {
   const response = await axios.get<BookingService[]>(

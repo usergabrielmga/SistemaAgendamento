@@ -21,12 +21,14 @@ const links = [
 
 export default function FooterLinks() {
   return (
-    <nav className="flex flex-col gap-3">
+    <nav className="flex flex-col gap-2 sm:gap-3">
       {links.map((link) => (
         <a
           key={link.href}
           href={link.href}
           className="
+            text-sm
+            sm:text-base
             text-[#D7C9C2]
             transition-colors
             hover:text-white

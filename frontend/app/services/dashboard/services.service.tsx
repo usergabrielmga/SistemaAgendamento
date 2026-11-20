@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { Services } from "../../types/dashboard/services.type";
 
-const API_URL = "https://sistema-agendamento-lovat.vercel.app/services";
+const API_URL = "http://localhost:3001/services";
 
 export async function getServices() {
 

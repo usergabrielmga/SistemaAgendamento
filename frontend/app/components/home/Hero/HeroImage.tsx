@@ -3,7 +3,6 @@
 import ImgVolumeFoxEyes from "../../../imgs/imgVolumeFoxEyes.jpeg";
 import Image from "next/image";
 
-
 export default function HeroImage() {
   return (
     <div className="relative hidden lg:block">

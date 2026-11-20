@@ -4,11 +4,12 @@ import HeroStats from "./HeroStats";
 
 export default function HeroContent() {
   return (
-    <div className="max-w-xl">
+    <div className="w-full max-w-xl">
 
       <span
         className="
-          text-xs
+          text-[10px]
+          sm:text-xs
           uppercase
           tracking-[0.35em]
           text-[#D9B7A8]
@@ -19,8 +20,11 @@ export default function HeroContent() {
 
       <h1
         className="
-          mt-6
-          text-6xl
+          mt-4
+          sm:mt-6
+          text-4xl
+          sm:text-5xl
+          lg:text-6xl
           font-bold
           leading-tight
           text-white
@@ -35,10 +39,14 @@ export default function HeroContent() {
 
       <p
         className="
-          mt-8
+          mt-5
+          sm:mt-8
           max-w-md
-          text-[17px]
-          leading-8
+          text-sm
+          sm:text-base
+          lg:text-[17px]
+          leading-7
+          lg:leading-8
           text-[#E7D9D2]
         "
       >
@@ -47,15 +55,19 @@ export default function HeroContent() {
         único, como você.
       </p>
 
-      <div className="mt-10 flex gap-5">
+      <div className="mt-7 sm:mt-10 flex flex-wrap gap-3 sm:gap-5">
 
         <a
           href="/agendamento"
           className="
             rounded-full
             bg-[#D29A8A]
-            px-8
-            py-4
+            px-6
+            py-3
+            sm:px-8
+            sm:py-4
+            text-sm
+            sm:text-base
             font-semibold
             text-white
             transition
@@ -71,8 +83,12 @@ export default function HeroContent() {
             rounded-full
             border
             border-white/30
-            px-8
-            py-4
+            px-6
+            py-3
+            sm:px-8
+            sm:py-4
+            text-sm
+            sm:text-base
             text-white
             transition
             hover:bg-white/10
